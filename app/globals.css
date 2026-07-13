@@ -1,26 +1,165 @@
+/* Global stylesheet entry point for Tailwind and shared design tokens. */
 @import "tailwindcss";
+@import "../src/styles/tokens.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--surface-background);
+  --foreground: var(--text-primary);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-dark: var(--brand-blue-dark);
+  --color-brand-black: var(--brand-black);
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-soft: var(--brand-gold-soft);
+  --color-brand-white: var(--brand-white);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-surface-strong: var(--brand-surface-strong);
+  --color-brand-border: var(--brand-border);
+  --color-brand-text-primary: var(--brand-text-primary);
+  --color-brand-text-muted: var(--brand-text-muted);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--brand-surface);
+  color: var(--brand-text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  letter-spacing: 0;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand-gold);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(181, 139, 62, 0.28);
+  color: var(--brand-black);
+}
+
+@layer utilities {
+  .brand-section {
+    margin: 0 auto;
+    max-width: 72rem;
+    padding-inline: 1.5rem;
+    padding-block: 5rem;
+  }
+
+  .brand-section--tight {
+    padding-block: 4rem;
+  }
+
+  .brand-card {
+    border: 1px solid var(--brand-border);
+    border-radius: var(--radius-xl);
+    background: var(--surface-elevated);
+    box-shadow: 0 20px 45px var(--brand-shadow);
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  .brand-card--interactive:hover {
+    transform: translateY(-3px);
+    border-color: rgba(181, 139, 62, 0.34);
+    box-shadow: 0 24px 50px rgba(11, 11, 11, 0.1);
+  }
+
+  .brand-card--soft {
+    background: var(--brand-surface);
+    border-color: rgba(217, 204, 187, 0.8);
+  }
+
+  .brand-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background: var(--brand-blue);
+    padding: 0.85rem 1.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand-white);
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    box-shadow: 0 14px 30px rgba(18, 47, 91, 0.12);
+  }
+
+  .brand-button:hover {
+    transform: translateY(-1px);
+    background: var(--brand-blue-dark);
+    box-shadow: 0 18px 34px rgba(18, 47, 91, 0.16);
+  }
+
+  .brand-button--secondary {
+    border-color: var(--brand-blue);
+    background: var(--brand-white);
+    color: var(--brand-blue);
+    box-shadow: none;
+  }
+
+  .brand-button--secondary:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 22px rgba(18, 47, 91, 0.08);
+  }
+
+  .brand-heading {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: 0;
+  }
+
+  .brand-subtitle {
+    color: var(--brand-gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .brand-muted {
+    color: var(--brand-text-muted);
+  }
+
+  .brand-surface {
+    background: var(--brand-surface);
+  }
+
+  .brand-surface-elevated {
+    background: var(--surface-elevated);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .brand-section,
+  .brand-section--tight {
+    padding-block: 3.5rem;
+  }
 }

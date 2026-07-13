@@ -1,6 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Siren } from "lucide-react";
 import { SiteShell } from "@/src/components/layout";
+
+export const metadata: Metadata = {
+  title: "Page Not Found",
+  description: "The page you requested could not be found.",
+};
 
 export default function NotFound() {
   return (

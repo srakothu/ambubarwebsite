@@ -2,6 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import {
+  Ambulance,
+  Beer,
+  Coffee,
+  PartyPopper,
+  TentTree,
+  type LucideIcon,
+} from "lucide-react";
 
 interface SectionHeadingProps {
   headingId?: string;
@@ -138,33 +146,37 @@ export function OverviewSection() {
 }
 
 export function ProcessSection() {
-  const services = [
+  const services: Array<{
+    icon: LucideIcon;
+    title: string;
+    description: string;
+  }> = [
     {
-      icon: "🚑",
+      icon: Ambulance,
       title: "Ambu Bar Experience",
       description:
         "A fully outfitted ambulance bar with service staff, branded setup, and a fun mobile presentation.",
     },
     {
-      icon: "🍻",
+      icon: Beer,
       title: "Beer & Wine Service",
       description:
         "Curated draft and bottle service for weddings, receptions, and community events.",
     },
     {
-      icon: "🥤",
+      icon: Coffee,
       title: "Mocktails & Coffee",
       description:
         "Premium non-alcoholic beverage service that looks polished and keeps everyone included.",
     },
     {
-      icon: "🎉",
+      icon: PartyPopper,
       title: "Weddings & Celebrations",
       description:
         "A mobile bar experience designed to feel personal, smooth, and memorable for your guests.",
     },
     {
-      icon: "🎪",
+      icon: TentTree,
       title: "Festivals & Pop-ups",
       description:
         "Reliable on-site service for higher-volume crowds at markets, charity events, and outdoor showcases.",
@@ -197,8 +209,8 @@ export function ProcessSection() {
             transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
             className="brand-card p-8"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-surface text-2xl text-brand-blue">
-              {service.icon}
+            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
+              <service.icon aria-hidden="true" size={28} strokeWidth={1.8} />
             </div>
             <h3 className="mt-6 text-xl font-semibold text-brand-black">{service.title}</h3>
             <p className="mt-3 text-base leading-7 text-brand-text-muted">{service.description}</p>

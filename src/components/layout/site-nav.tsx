@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { primaryNavigation } from "@/src/content/site-content";
@@ -8,6 +8,7 @@ import { primaryNavigation } from "@/src/content/site-content";
 export function SiteNav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,15 +23,16 @@ export function SiteNav() {
 
   useEffect(() => {
     const closeMenuOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
+        requestAnimationFrame(() => menuButtonRef.current?.focus());
       }
     };
 
     window.addEventListener("keydown", closeMenuOnEscape);
 
     return () => window.removeEventListener("keydown", closeMenuOnEscape);
-  }, []);
+  }, [isMobileMenuOpen]);
 
   const shellClasses = isScrolled
     ? "border-brand-border bg-brand-white/95 text-brand-charcoal shadow-[0_10px_35px_rgba(16,50,77,0.12)]"
@@ -82,6 +84,7 @@ export function SiteNav() {
         </nav>
 
         <button
+          ref={menuButtonRef}
           type="button"
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-navigation"

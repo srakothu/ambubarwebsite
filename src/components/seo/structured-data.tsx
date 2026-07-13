@@ -3,7 +3,7 @@ import { business, socialLinks } from "@/src/content/site-content";
 export function StructuredData() {
   const data = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "EventService"],
+    "@type": "LocalBusiness",
     name: business.name,
     legalName: business.legalName,
     description:

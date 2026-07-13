@@ -41,10 +41,6 @@ export const metadata: Metadata = {
       "For all your beverage emergencies, call on us, your Thirst Responders.",
     images: [{ url: "/opengraph-image", alt: "Ambu Bar Thirst Responders mobile beverage bar" }],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
   category: "Mobile beverage service",
 };
 

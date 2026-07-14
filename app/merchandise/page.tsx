@@ -1,24 +1,31 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { ExternalLink, ShoppingBag } from "lucide-react";
 import { SiteShell } from "@/src/components/layout";
+import { merchandise } from "@/src/content/site-content";
+
+const merchandiseDescription = merchandise.shopUrl
+  ? "Shop official Ambu Bar apparel, drinkware, and Thirst Responders gear."
+  : "Ambu Bar merchandise is on the way, including Thirst Responders apparel, drinkware, and more.";
 
 export const metadata: Metadata = {
   title: "Merchandise",
-  description:
-    "Ambu Bar merchandise is coming soon, including Thirst Responders apparel and event-ready gear.",
+  description: merchandiseDescription,
   alternates: {
     canonical: "/merchandise",
   },
   openGraph: {
     title: "Ambu Bar Merchandise",
-    description: "Thirst Responders apparel and event-ready gear are coming soon.",
+    description: merchandiseDescription,
     type: "website",
     url: "/merchandise",
   },
 };
 
 export default function MerchandisePage() {
+  const shopUrl = merchandise.shopUrl;
+
   return (
     <SiteShell>
       <section className="brand-section brand-section--tight">
@@ -26,19 +33,39 @@ export default function MerchandisePage() {
           <div className="max-w-3xl">
           <p className="brand-subtitle">Merchandise</p>
           <h1 className="brand-heading mt-3 text-4xl font-semibold tracking-tight text-brand-black sm:text-5xl">
-            Thirst Responders merchandise is coming soon.
+            {shopUrl ? "Suit up with the Thirst Responders." : "The Ambu Bar merch shop is on the way."}
           </h1>
           <p className="mt-6 text-lg leading-8 text-brand-text-muted">
-            We are preparing a small collection of branded shirts, hats, and event-ready gear for hosts and fans of the Ambu Bar experience. Reach out to get updates when the shop opens.
+            {shopUrl
+              ? "Shop official Ambu Bar shirts, drinkware, and more—made for the people who know how to answer a beverage emergency in style."
+              : "People have asked, and we are getting the Thirst Responders collection ready: branded shirts, drinkware, and more for fans of the Ambu Bar experience."}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/contact" className="brand-button">
-              Contact Us
-            </Link>
+            {shopUrl ? (
+              <a
+                href={shopUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="brand-button gap-2"
+              >
+                <ShoppingBag aria-hidden="true" size={17} />
+                Shop merchandise
+                <ExternalLink aria-hidden="true" size={15} />
+              </a>
+            ) : (
+              <Link href="/contact" className="brand-button">
+                Get shop updates
+              </Link>
+            )}
             <Link href="/#home" className="brand-button brand-button--secondary">
               Back to home
             </Link>
           </div>
+          {!shopUrl ? (
+            <p className="mt-5 text-sm leading-6 text-brand-text-muted">
+              The shop button will appear here as soon as the pop-up store link is live.
+            </p>
+          ) : null}
           </div>
           <div className="brand-card brand-card--soft overflow-hidden">
             <Image

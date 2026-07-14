@@ -1,5 +1,6 @@
 export const footerQuickLinks = [
       { label: "About", href: "/#about", isSectionLink: true },
+      { label: "Team", href: "/#team", isSectionLink: true },
       { label: "Services", href: "/#services", isSectionLink: true },
       { label: "Gallery", href: "/#gallery", isSectionLink: true },
       { label: "Merchandise", href: "/merchandise", isSectionLink: false },
@@ -27,9 +28,19 @@ export const business = {
   ownerExperience: "Retired firefighter and EMT with more than 32 years of service",
 } as const;
 
+export interface MerchandiseDetails {
+  shopUrl: string | null;
+}
+
+export const merchandise: MerchandiseDetails = {
+  // Replace this with the pop-up shop URL when the vendor provides it.
+  shopUrl: null,
+};
+
 export const primaryNavigation = [
   { label: "Home", href: "/#home", isSectionLink: true },
   { label: "About", href: "/#about", isSectionLink: true },
+  { label: "Team", href: "/#team", isSectionLink: true },
   { label: "Services", href: "/#services", isSectionLink: true },
   { label: "Pricing", href: "/#pricing", isSectionLink: true },
   { label: "Gallery", href: "/#gallery", isSectionLink: true },

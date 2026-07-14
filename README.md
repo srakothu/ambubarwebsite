@@ -38,7 +38,7 @@ The app also supplies a branded Open Graph/Twitter image, application icon, 404 
 
 ## Content Updates
 
-Update [src/content/site-content.ts](src/content/site-content.ts) for shared contact details, live social profiles, navigation labels, public event cards, and partnership categories. The `publicEvents` array intentionally starts empty so only confirmed appearances are published.
+Update [src/content/site-content.ts](src/content/site-content.ts) for shared contact details, live social profiles, navigation labels, public event cards, partnership categories, and the pop-up merchandise store URL. The `publicEvents` array intentionally starts empty so only confirmed appearances are published.
 
 Images are stored in `public/images/`. Use `next/image` for site imagery and supply meaningful alt text. Do not reintroduce stock event photography when a client asset is available.
 

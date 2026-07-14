@@ -8,6 +8,7 @@ import {
   PartnersSection,
   PricingSection,
   ProcessSection,
+  TeamSection,
 } from "@/src/components/home";
 import { SiteFooter, SiteHeader } from "@/src/components/layout";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <main id="main-content" className="flex-1">
         <HeroSection />
         <OverviewSection />
+        <TeamSection />
         <ProcessSection />
         <GallerySection />
         <EventsSection />

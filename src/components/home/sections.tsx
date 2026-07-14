@@ -155,7 +155,7 @@ export function ProcessSection() {
       icon: Ambulance,
       title: "Ambu Bar Experience",
       description:
-        "A fully outfitted ambulance bar with service staff, branded setup, and a fun mobile presentation.",
+        "A fully outfitted ambulance bar with our friendly E.M.T. team, branded setup, and a fun mobile presentation.",
     },
     {
       icon: Beer,
@@ -197,7 +197,7 @@ export function ProcessSection() {
         headingId="services-heading"
         eyebrow="Services"
         title="Service options for every kind of event."
-        description="From beer-and-wine service to full mobile bartending, we help you create a beverage setup that fits your guest list, venue, and vibe."
+        description="From beer-and-wine service to full mobile bartending, our E.M.T.s—Emergency Mixology Technicians—help you create a beverage setup that fits your guest list, venue, and vibe."
       />
       <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {services.map((service, index) => (
@@ -234,7 +234,7 @@ export function PricingSection() {
       name: "Full Event Service",
       price: "Custom quote",
       note: "Weddings & larger events",
-      includes: ["Dedicated service team", "Expanded beverage menu", "Flexible setup for indoor or outdoor venues"],
+      includes: ["Dedicated E.M.T. service team", "Expanded beverage menu", "Flexible setup for indoor or outdoor venues"],
       cta: "Book a Consultation",
     },
   ];

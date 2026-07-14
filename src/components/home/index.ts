@@ -4,4 +4,5 @@ export { EventsSection } from "./events-section";
 export { ExperienceSection } from "./experience-section";
 export { GallerySection } from "./gallery-section";
 export { PartnersSection } from "./partners-section";
+export { TeamSection } from "./team-section";
 export { ContactSection, OverviewSection, PricingSection, ProcessSection } from "./sections";

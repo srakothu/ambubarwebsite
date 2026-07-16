@@ -125,6 +125,7 @@ export function GallerySection({ items = defaultItems }: GallerySectionProps) {
                 src={item.src}
                 alt={item.alt}
                 fill
+                loading={item.src === "/images/Ambubar55logo.jpeg" ? "eager" : "lazy"}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 hover:scale-105"
               />

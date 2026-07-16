@@ -2,6 +2,7 @@ export const footerQuickLinks = [
       { label: "About", href: "/#about", isSectionLink: true },
       { label: "Team", href: "/#team", isSectionLink: true },
       { label: "Services", href: "/#services", isSectionLink: true },
+  { label: "Dirty Soda", href: "/#dirty-soda", isSectionLink: true },
       { label: "Gallery", href: "/#gallery", isSectionLink: true },
       { label: "Merchandise", href: "/merchandise", isSectionLink: false },
       { label: "Contact", href: "/contact", isSectionLink: false },
@@ -25,7 +26,6 @@ export const business = {
   serviceArea: "Pennsylvania and nearby communities",
   website: "https://www.ambubar.com",
   tagline: "For all of your beverage emergencies, call on us, your Thirst Responders.",
-  ownerExperience: "Retired firefighter and EMT with more than 32 years of service",
 } as const;
 
 export interface MerchandiseDetails {
@@ -37,18 +37,58 @@ export const merchandise: MerchandiseDetails = {
   shopUrl: null,
 };
 
-export const primaryNavigation = [
-  { label: "Home", href: "/#home", isSectionLink: true },
-  { label: "About", href: "/#about", isSectionLink: true },
-  { label: "Team", href: "/#team", isSectionLink: true },
-  { label: "Services", href: "/#services", isSectionLink: true },
-  { label: "Pricing", href: "/#pricing", isSectionLink: true },
-  { label: "Gallery", href: "/#gallery", isSectionLink: true },
-  { label: "Partners", href: "/#partners", isSectionLink: true },
-  { label: "Events", href: "/#events", isSectionLink: true },
+export interface NavigationItem {
+  label: string;
+  href: string;
+  isSectionLink: boolean;
+}
+
+export interface NavigationGroup {
+  label: string;
+  items: readonly NavigationItem[];
+}
+
+export const navigationGroups: readonly NavigationGroup[] = [
+  {
+    label: "Plan Your Event",
+    items: [
+      { label: "Services", href: "/#services", isSectionLink: true },
+      { label: "Dirty Soda Bar", href: "/#dirty-soda", isSectionLink: true },
+      { label: "Pricing", href: "/#pricing", isSectionLink: true },
+      { label: "Contact", href: "/contact", isSectionLink: false },
+    ],
+  },
+  {
+    label: "Explore Ambu Bar",
+    items: [
+      { label: "About", href: "/#about", isSectionLink: true },
+      { label: "Team", href: "/#team", isSectionLink: true },
+      { label: "Gallery", href: "/#gallery", isSectionLink: true },
+      { label: "Events", href: "/#events", isSectionLink: true },
+      { label: "Ambu Bar Difference", href: "/#experience", isSectionLink: true },
+    ],
+  },
+  {
+    label: "Partners",
+    items: [
+      {
+        label: "Wineries, Breweries & Spirits",
+        href: "/#partners",
+        isSectionLink: true,
+      },
+    ],
+  },
+];
+
+export const navigationDirectLinks: readonly NavigationItem[] = [
   { label: "Merchandise", href: "/merchandise", isSectionLink: false },
-  { label: "Contact", href: "/contact", isSectionLink: false },
-] as const;
+];
+
+export const navigationCta: NavigationItem = {
+  label: "Book Now",
+  href: "/contact",
+  isSectionLink: false,
+};
 
 export interface PublicEvent {
   id: string;
@@ -61,31 +101,27 @@ export interface PublicEvent {
 
 export const publicEvents: PublicEvent[] = [];
 
-export interface PartnerOpportunity {
+export type PartnerCategory = "Winery" | "Brewery" | "Spirits";
+
+export interface FeaturedPartner {
   id: string;
-  title: string;
-  description: string;
+  name: string;
+  category: PartnerCategory;
+  summary: string;
+  websiteUrl: string;
+  facebookUrl?: string;
+  logoSrc?: string;
+  logoAlt?: string;
 }
 
-export const partnerOpportunities: PartnerOpportunity[] = [
+export const featuredPartners: FeaturedPartner[] = [
   {
-    id: "wineries",
-    title: "Wineries & vineyards",
-    description: "Pair thoughtful pours with a mobile setup that keeps guests moving.",
-  },
-  {
-    id: "breweries",
-    title: "Breweries & beverage makers",
-    description: "Bring a memorable taproom-style presence to markets, releases, and festivals.",
-  },
-  {
-    id: "venues",
-    title: "Venues & event teams",
-    description: "Offer hosts an experienced, turnkey beverage partner for the big day.",
-  },
-  {
-    id: "community",
-    title: "Community organizations",
-    description: "Create crowd-friendly service for fundraisers, festivals, and local gatherings.",
+    id: "ridgewood-winery",
+    name: "Ridgewood Winery",
+    category: "Winery",
+    summary:
+      "Ridgewood Winery is an award-winning winery in Berks County with tasting room locations in Birdsboro and Bechtelsville, Pennsylvania.",
+    websiteUrl: "https://www.ridgewoodwinery.com/",
+    facebookUrl: "https://www.facebook.com/ridgewoodwinery/",
   },
 ];

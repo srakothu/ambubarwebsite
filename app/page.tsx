@@ -1,5 +1,6 @@
 import {
   ContactSection,
+  DirtySodaSection,
   EventsSection,
   ExperienceSection,
   GallerySection,
@@ -10,25 +11,22 @@ import {
   ProcessSection,
   TeamSection,
 } from "@/src/components/home";
-import { SiteFooter, SiteHeader } from "@/src/components/layout";
+import { SiteShell } from "@/src/components/layout";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-brand-surface text-brand-text-primary">
-      <SiteHeader />
-      <main id="main-content" className="flex-1">
-        <HeroSection />
-        <OverviewSection />
-        <TeamSection />
-        <ProcessSection />
-        <GallerySection />
-        <EventsSection />
-        <PartnersSection />
-        <ExperienceSection />
-        <PricingSection />
-        <ContactSection />
-      </main>
-      <SiteFooter />
-    </div>
+    <SiteShell>
+      <HeroSection />
+      <OverviewSection />
+      <TeamSection />
+      <ProcessSection />
+      <DirtySodaSection />
+      <GallerySection />
+      <EventsSection />
+      <PartnersSection />
+      <ExperienceSection />
+      <PricingSection />
+      <ContactSection />
+    </SiteShell>
   );
 }

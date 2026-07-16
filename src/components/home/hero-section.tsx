@@ -19,14 +19,30 @@ export function HeroSection() {
         src="/images/Ambubar55logo.jpeg"
         alt=""
         fill
-        priority
+        loading="eager"
         sizes="100vw"
         className="object-cover object-center opacity-70"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,28,57,0.96)_0%,rgba(10,28,57,0.9)_45%,rgba(10,28,57,0.48)_100%)]" />
 
-      <div className="relative mx-auto flex min-h-168 max-w-6xl items-center px-6 py-20 sm:px-8 lg:min-h-184 lg:px-8 lg:py-24">
-        <div className="max-w-2xl space-y-8">
+      <div className="relative mx-auto flex max-w-6xl items-center px-6 py-16 sm:min-h-168 sm:px-8 sm:py-20 lg:min-h-184 lg:px-8 lg:py-24">
+        <div className="max-w-2xl space-y-6 sm:space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.05, duration: 0.4 }}
+            className="w-44 overflow-hidden rounded-md border border-white/50 bg-white p-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:w-56"
+          >
+            <Image
+              src="/images/5533a687-7fe0-462c-97b5-c7ba4cae07bb.jpeg"
+              alt="Ambu-Bar Thirst Responder logo"
+              width={982}
+              height={645}
+              loading="eager"
+              sizes="(max-width: 640px) 176px, 224px"
+              className="h-auto w-full"
+            />
+          </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -56,12 +72,12 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.5 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-col gap-3 sm:flex-row sm:gap-4"
           >
-            <Link href="/contact" className="brand-button">
+            <Link href="/contact" className="brand-button w-full sm:w-auto">
               Check Availability
             </Link>
-            <a href="#services" className="brand-button brand-button--secondary">
+            <a href="#services" className="brand-button brand-button--secondary w-full sm:w-auto">
               Explore Services
             </a>
           </motion.div>
@@ -69,11 +85,11 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="grid gap-5 border-t border-white/25 pt-6 sm:grid-cols-3"
+            className="grid gap-4 border-t border-white/25 pt-5 sm:grid-cols-3 sm:gap-5 sm:pt-6"
           >
             {[
               { label: "Service area", value: "PA and nearby communities" },
-              { label: "What we serve", value: "Beer, wine, mocktails, coffee" },
+              { label: "What we serve", value: "Beer, wine, mocktails, coffee, Dirty Soda" },
               { label: "Built for", value: "Weddings, festivals, gatherings" },
             ].map((item) => (
               <div key={item.label}>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import {
   business,
@@ -13,6 +14,20 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-6 py-12 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div className="space-y-4">
+            <Link
+              href="/#home"
+              className="block w-36 overflow-hidden rounded-md border border-white/30 bg-white p-1.5 shadow-sm"
+              aria-label="Ambu Bar home"
+            >
+              <Image
+                src="/images/5533a687-7fe0-462c-97b5-c7ba4cae07bb.jpeg"
+                alt="Ambu-Bar Thirst Responder logo"
+                width={982}
+                height={645}
+                sizes="144px"
+                className="h-auto w-full"
+              />
+            </Link>
             <p className="brand-subtitle text-brand-gold-soft">{business.name}</p>
             <h2 className="brand-heading text-2xl sm:text-3xl">
               A real ambulance. A memorable bar. Service your guests can count on.

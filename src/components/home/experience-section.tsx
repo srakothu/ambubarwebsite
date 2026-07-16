@@ -3,12 +3,12 @@ import { CheckCircle2, GlassWater, Siren } from "lucide-react";
 const expectations = [
   {
     title: "Calm, capable coordination",
-    description: "A retired firefighter and EMT brings more than 32 years of service-minded planning to every event conversation.",
+    description: "A retired firefighter and first responder brings more than 32 years of service-minded planning to every event conversation.",
     Icon: CheckCircle2,
   },
   {
     title: "A beverage plan for the whole crowd",
-    description: "Beer, wine, mocktails, coffee, and flexible options help every guest feel considered.",
+    description: "Beer, wine, mocktails, coffee, Dirty Soda, and flexible options help every guest feel considered.",
     Icon: GlassWater,
   },
   {
@@ -20,7 +20,7 @@ const expectations = [
 
 export function ExperienceSection() {
   return (
-    <section aria-labelledby="experience-heading" className="brand-section brand-section--tight">
+    <section id="experience" aria-labelledby="experience-heading" className="brand-section brand-section--tight">
       <div className="max-w-2xl">
         <p className="brand-subtitle">The Ambu Bar difference</p>
         <h2 id="experience-heading" className="brand-heading mt-3 text-3xl font-semibold tracking-tight text-brand-black sm:text-4xl">

@@ -4,7 +4,7 @@ import { HeartHandshake, Megaphone } from "lucide-react";
 export function TeamSection() {
   return (
     <section id="team" aria-labelledby="team-heading" className="brand-section brand-section--tight">
-      <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+      <div className="grid gap-6 sm:gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
         <div className="brand-card overflow-hidden">
           <div className="relative aspect-3/4">
             <Image
@@ -17,13 +17,13 @@ export function TeamSection() {
           </div>
         </div>
 
-        <div className="brand-card p-8 sm:p-10">
+        <div className="brand-card p-6 sm:p-8 lg:p-10">
           <p className="brand-subtitle">Our team</p>
           <h2 id="team-heading" className="brand-heading mt-3 text-3xl font-semibold tracking-tight text-brand-black sm:text-4xl">
             Service-minded people behind every memorable pour.
           </h2>
 
-          <div className="mt-8 flex items-start gap-4">
+          <div className="mt-6 flex items-start gap-4 sm:mt-8">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
               <Megaphone aria-hidden="true" size={24} strokeWidth={1.8} />
             </div>
@@ -39,7 +39,7 @@ export function TeamSection() {
             </div>
           </div>
 
-          <div className="mt-8 flex items-start gap-3 border-t border-brand-border pt-6 text-sm leading-6 text-brand-text-muted">
+          <div className="mt-6 flex items-start gap-3 border-t border-brand-border pt-5 text-sm leading-6 text-brand-text-muted sm:mt-8 sm:pt-6">
             <HeartHandshake aria-hidden="true" size={20} className="mt-0.5 shrink-0 text-brand-gold" />
             <p>
               Together since 2017, Mary Ann and the Ambu Bar founder bring a family-first perspective to every event.

@@ -16,6 +16,7 @@ interface SectionHeadingProps {
   eyebrow: string;
   title: string;
   description: string;
+  descriptionBelow?: string;
   align?: "left" | "center";
 }
 
@@ -24,6 +25,7 @@ function SectionHeading({
   eyebrow,
   title,
   description,
+  descriptionBelow,
   align = "left",
 }: SectionHeadingProps) {
   const alignmentClasses = align === "center" ? "mx-auto text-center" : "text-left";
@@ -40,7 +42,10 @@ function SectionHeading({
       <h2 id={headingId} className="brand-heading mt-3 text-3xl font-semibold tracking-tight text-brand-black sm:text-4xl">
         {title}
       </h2>
-      <p className="mt-4 text-lg leading-8 text-brand-text-muted">{description}</p>
+      <p className="mt-4 text-base leading-7 text-brand-text-muted sm:text-lg sm:leading-8">{description}</p>
+      {descriptionBelow ? (
+        <p className="mt-3 text-base leading-7 text-brand-text-muted">{descriptionBelow}</p>
+      ) : null}
     </motion.div>
   );
 }
@@ -58,7 +63,7 @@ function FeatureCard({ eyebrow, title, description }: FeatureCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="brand-card p-8"
+      className="brand-card p-6 sm:p-8"
     >
       <p className="brand-subtitle">{eyebrow}</p>
       <h3 className="mt-4 text-xl font-semibold text-brand-black">{title}</h3>
@@ -73,7 +78,7 @@ export function OverviewSection() {
       eyebrow: "Firefighter roots",
       title: "Service you can count on",
       description:
-        "After 32 years as a firefighter and EMT, our owner runs Ambu Bar with calm planning and fast, friendly service.",
+        "After 32 years as a firefighter and first responder, our owner runs Ambu Bar with calm planning and fast, friendly service.",
     },
     {
       eyebrow: "Local energy",
@@ -85,7 +90,7 @@ export function OverviewSection() {
       eyebrow: "Fun atmosphere",
       title: "A memorable mobile bar",
       description:
-        "The ambulance is the centerpiece, and the service is the part your guests will actually remember.",
+        "The ambulance is the centerpiece, and the menu options, including Dirty Soda service, are what guests remember.",
     },
   ];
 
@@ -99,13 +104,13 @@ export function OverviewSection() {
       transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section"
     >
-      <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-        <div className="space-y-6">
+      <div className="grid gap-8 lg:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="space-y-5 sm:space-y-6">
           <SectionHeading
             headingId="about-heading"
             eyebrow="About Ambu Bar"
             title="Built from a firefighter’s dedication to service."
-            description="Ambu Bar began when a career firefighter and EMT converted a real ambulance into a mobile bar, bringing disciplined hospitality and a fun, memorable concept to events across Pennsylvania."
+            description="Ambu Bar began when a career firefighter and first responder converted a real ambulance into a mobile bar, bringing disciplined hospitality and a fun, memorable concept to events across Pennsylvania."
           />
           <div className="brand-card brand-card--soft p-8">
             <p className="brand-subtitle">Our mission</p>
@@ -120,18 +125,18 @@ export function OverviewSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
-          className="brand-card p-8 sm:p-10"
+          className="brand-card p-6 sm:p-8 lg:p-10"
         >
           <p className="brand-subtitle">Why choose Ambu Bar</p>
           <ul className="mt-6 space-y-4 text-base leading-7 text-brand-text-muted">
             <li>• Firefighter-owned hospitality with dependable setup and execution.</li>
-            <li>• Beverage options for every guest, from beer and wine to mocktails and coffee.</li>
+            <li>• Beverage options for every guest, from beer and wine to mocktails, coffee, and Dirty Soda.</li>
             <li>• A standout mobile bar concept that adds energy without creating extra work for the host.</li>
           </ul>
         </motion.div>
       </div>
 
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-3">
         {highlights.map((item) => (
           <FeatureCard
             key={item.title}
@@ -155,7 +160,7 @@ export function ProcessSection() {
       icon: Ambulance,
       title: "Ambu Bar Experience",
       description:
-        "A fully outfitted ambulance bar with our friendly E.M.T. team, branded setup, and a fun mobile presentation.",
+        "A fully outfitted ambulance bar with our friendly E.M.T.s, branded setup, and a fun mobile presentation.",
     },
     {
       icon: Beer,
@@ -167,7 +172,13 @@ export function ProcessSection() {
       icon: Coffee,
       title: "Mocktails & Coffee",
       description:
-        "Premium non-alcoholic beverage service that looks polished and keeps everyone included.",
+        "Premium non-alcoholic beverage service, including Dirty Soda options, that looks polished and keeps everyone included.",
+    },
+    {
+      icon: Coffee,
+      title: "Dirty Soda Bar",
+      description:
+        "A customizable non-alcoholic beverage experience with premium sodas, syrups, cream, fruit garnishes, and specialty toppings.",
     },
     {
       icon: PartyPopper,
@@ -197,9 +208,10 @@ export function ProcessSection() {
         headingId="services-heading"
         eyebrow="Services"
         title="Service options for every kind of event."
-        description="From beer-and-wine service to full mobile bartending, our E.M.T.s—Emergency Mixology Technicians—help you create a beverage setup that fits your guest list, venue, and vibe."
+        description="From beer-and-wine service to full mobile bartending, our Emergency Mixology Technicians (E.M.T.s) help you create a beverage setup that fits your guest list, venue, and vibe."
+        descriptionBelow="Our Emergency Mixology Technicians (E.M.T.s) are professionally trained bartenders dedicated to delivering exceptional hospitality and memorable beverage experiences."
       />
-      <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
         {services.map((service, index) => (
           <motion.article
             key={service.title}
@@ -207,13 +219,58 @@ export function ProcessSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
-            className="brand-card p-8"
+            className="brand-card p-6 sm:p-8"
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
               <service.icon aria-hidden="true" size={28} strokeWidth={1.8} />
             </div>
             <h3 className="mt-6 text-xl font-semibold text-brand-black">{service.title}</h3>
             <p className="mt-3 text-base leading-7 text-brand-text-muted">{service.description}</p>
+          </motion.article>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
+export function DirtySodaSection() {
+  const dirtySodaMenu = [
+    "Dirty Dr Pepper",
+    "Dirty Coke",
+    "Dirty Sprite",
+    "Dirty Mountain Dew",
+    "Custom Dirty Soda Creations",
+  ] as const;
+
+  return (
+    <motion.section
+      id="dirty-soda"
+      aria-labelledby="dirty-soda-heading"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      className="brand-section brand-section--tight"
+    >
+      <SectionHeading
+        headingId="dirty-soda-heading"
+        eyebrow="Dirty Soda Bar"
+        title="A customizable non-alcoholic beverage experience."
+        description="A customizable non-alcoholic beverage experience featuring premium sodas, flavored syrups, cream, fruit garnishes, and specialty toppings."
+      />
+
+      <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
+        {dirtySodaMenu.map((item, index) => (
+          <motion.article
+            key={item}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
+            className="brand-card brand-card--soft p-5 sm:p-6 lg:p-8"
+          >
+            <p className="brand-subtitle">Drink menu</p>
+            <h3 className="mt-4 text-xl font-semibold text-brand-black">{item}</h3>
           </motion.article>
         ))}
       </div>
@@ -234,7 +291,7 @@ export function PricingSection() {
       name: "Full Event Service",
       price: "Custom quote",
       note: "Weddings & larger events",
-      includes: ["Dedicated E.M.T. service team", "Expanded beverage menu", "Flexible setup for indoor or outdoor venues"],
+      includes: ["Dedicated E.M.T.s", "Expanded beverage menu", "Flexible setup for indoor or outdoor venues"],
       cta: "Book a Consultation",
     },
   ];
@@ -253,9 +310,9 @@ export function PricingSection() {
         headingId="pricing-heading"
         eyebrow="Pricing"
         title="Flexible packages built around your guest list and venue."
-        description="We tailor pricing around service length, guest count, beverage menu, and whether you need a simple setup or full event support."
+        description="We tailor pricing around service length, guest count, beverage menu, including Dirty Soda selections, and whether you need a simple setup or full event support."
       />
-      <div className="mt-10 grid gap-6 lg:grid-cols-2">
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 lg:grid-cols-2">
         {plans.map((plan, index) => (
           <motion.article
             key={plan.name}
@@ -263,9 +320,9 @@ export function PricingSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-            className="brand-card p-8 sm:p-10"
+            className="brand-card p-6 sm:p-8 lg:p-10"
           >
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h3 className="text-2xl font-semibold text-brand-black">{plan.name}</h3>
                 <p className="mt-2 text-sm text-brand-text-muted">{plan.note}</p>
@@ -310,14 +367,14 @@ export function ContactSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="brand-card brand-card--soft p-8 sm:p-10"
+        className="brand-card brand-card--soft p-6 sm:p-8 lg:p-10"
       >
         <SectionHeading
           headingId="contact-heading"
           align="center"
           eyebrow="Start a conversation"
           title="Ready for a beverage emergency?"
-          description="Tell us about your date, guest count, and whether you want beer and wine, mocktails, coffee service, or a full mobile bar. We serve weddings, private parties, festivals, and corporate events throughout Pennsylvania."
+          description="Tell us about your date, guest count, and whether you want beer and wine, mocktails, coffee service, Dirty Soda options, or a full mobile bar. We serve weddings, private parties, festivals, and corporate events throughout Pennsylvania."
         />
         <div className="mt-6 space-y-3 text-sm leading-7 text-brand-text-muted">
           <p>
@@ -332,10 +389,10 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.35, delay: 0.05, ease: "easeOut" }}
-          className="mt-8 flex flex-wrap justify-center gap-3"
+          className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center"
         >
-          <a href="mailto:AmbuBarLLC@gmail.com" className="brand-button">AmbuBarLLC@gmail.com</a>
-          <a href="#home" className="brand-button brand-button--secondary">
+          <a href="mailto:AmbuBarLLC@gmail.com" className="brand-button w-full sm:w-auto">AmbuBarLLC@gmail.com</a>
+          <a href="#home" className="brand-button brand-button--secondary w-full sm:w-auto">
             Back to top
           </a>
         </motion.div>

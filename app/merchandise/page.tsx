@@ -73,6 +73,7 @@ export default function MerchandisePage() {
               alt="Blue Ambu Bar Thirst Responder T-shirt"
               width={1125}
               height={1607}
+              loading="eager"
               sizes="(max-width: 1024px) 100vw, 42vw"
               className="aspect-4/5 h-full w-full object-cover"
             />

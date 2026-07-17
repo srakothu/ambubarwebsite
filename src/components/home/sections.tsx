@@ -5,9 +5,16 @@ import { motion } from "framer-motion";
 import {
   Ambulance,
   Beer,
+  CalendarCheck2,
+  CircleDollarSign,
   Coffee,
+  MapPin,
   PartyPopper,
+  ReceiptText,
+  ShieldCheck,
   TentTree,
+  UsersRound,
+  Wine,
   type LucideIcon,
 } from "lucide-react";
 
@@ -281,18 +288,112 @@ export function DirtySodaSection() {
 export function PricingSection() {
   const plans = [
     {
-      name: "Mobile Bar Drop",
-      price: "Starting at $250",
-      note: "Great for 25–75 guests",
-      includes: ["Ambu Bar event setup", "Service options tailored to your menu", "Setup and breakdown"],
-      cta: "Request a Quote",
+      abbreviation: "B.L.S.",
+      name: "Basic Liquor Service",
+      summary: "Beer and wine service for 12 to 30 guests.",
+      Icon: Wine,
+      options: [
+        {
+          name: "Satellite Bar & Tent",
+          price: "$100 / hour",
+          detail: "2-hour minimum",
+        },
+        {
+          name: "B.L.S. Response",
+          price: "$200 first hour",
+          detail: "Actual Ambu-Bar; $100 each additional hour",
+        },
+      ],
+      includes: ["Beer and wine service", "Supplies: $65", "Bartender: $50 / hour", "10% service charge"],
+      addOns: ["Mocktails & Dirty Soda: $50", "Up to 3 signature cocktails: $75"],
     },
     {
-      name: "Full Event Service",
-      price: "Custom quote",
-      note: "Weddings & larger events",
-      includes: ["Dedicated E.M.T.s", "Expanded beverage menu", "Flexible setup for indoor or outdoor venues"],
-      cta: "Book a Consultation",
+      abbreviation: "A.L.S.",
+      name: "Advanced Liquor Service",
+      summary: "Satellite Bar & Tent service for parties of 50 or more.",
+      Icon: ShieldCheck,
+      options: [
+        {
+          name: "Satellite Bar & Tent",
+          price: "$100 / hour",
+          detail: "3-hour minimum",
+        },
+      ],
+      includes: [
+        "Beer and wine service with up to 3-4 signature cocktails",
+        "Supplies: $100 per 50 guests",
+        "Bartender: $50 / hour",
+        "Tip jar allowed, or add 10% gratuity",
+        "10% service charge",
+      ],
+      addOns: ["Dirty Sodas & Mocktails: $75"],
+    },
+    {
+      abbreviation: "M.C.I.",
+      name: "Mass Consumer Incident",
+      summary: "Ambu-Bar service for parties of 50 or more.",
+      Icon: Ambulance,
+      options: [
+        {
+          name: "Ambu-Bar Response",
+          price: "$250 first hour",
+          detail: "Satellite Bar & Tent and seating area; $125 each additional hour; 3-hour minimum",
+        },
+      ],
+      includes: [
+        "Beer and wine service with up to 3-4 signature cocktails",
+        "Supplies: $100 per 50 guests",
+        "Bartender: $50 / hour",
+        "Tip jar allowed, or add 10% gratuity",
+        "10% service charge",
+      ],
+      addOns: ["Dirty Sodas & Mocktails: $75"],
+    },
+  ];
+
+  const serviceDetails = [
+    {
+      Icon: CalendarCheck2,
+      label: "Setup & cleanup",
+      detail: "Up to 1 hour of setup plus breakdown and cleanup are included with every package.",
+    },
+    {
+      Icon: UsersRound,
+      label: "Bartending team",
+      detail: "RAMP Certified Bartenders, with 1 bartender required for every 50 guests.",
+    },
+    {
+      Icon: MapPin,
+      label: "Travel & permits",
+      detail: "B.L.S. includes 25 miles; A.L.S. and M.C.I. include 30 miles. Beyond the included distance, travel is $2 per mile one way. Alcohol service requires a $75 permit fee.",
+    },
+  ];
+
+  const bookingPolicies = [
+    {
+      Icon: CircleDollarSign,
+      title: "50% deposit",
+      detail: "Required for bookings 30 days in advance.",
+    },
+    {
+      Icon: CalendarCheck2,
+      title: "Final balance",
+      detail: "Due 10 days before the event.",
+    },
+  ];
+
+  const cancellationPolicies = [
+    {
+      threshold: "More than 30 days",
+      detail: "Full refund.",
+    },
+    {
+      threshold: "Less than 14 days",
+      detail: "50% of the deposit is refunded.",
+    },
+    {
+      threshold: "Less than 7 days",
+      detail: "No refund.",
     },
   ];
 
@@ -309,10 +410,10 @@ export function PricingSection() {
       <SectionHeading
         headingId="pricing-heading"
         eyebrow="Pricing"
-        title="Flexible packages built around your guest list and venue."
-        description="We tailor pricing around service length, guest count, beverage menu, including Dirty Soda selections, and whether you need a simple setup or full event support."
+        title="Choose the response level that fits your event."
+        description="Each package is organized around your guest count, service setup, and beverage options so you can quickly see what applies to your celebration."
       />
-      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 lg:grid-cols-2">
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 xl:grid-cols-3">
         {plans.map((plan, index) => (
           <motion.article
             key={plan.name}
@@ -320,33 +421,122 @@ export function PricingSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-            className="brand-card p-6 sm:p-8 lg:p-10"
+            className="brand-card flex h-full flex-col p-6 sm:p-8"
           >
-            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 className="text-2xl font-semibold text-brand-black">{plan.name}</h3>
-                <p className="mt-2 text-sm text-brand-text-muted">{plan.note}</p>
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
+                <plan.Icon aria-hidden="true" size={24} strokeWidth={1.8} />
               </div>
-              <span className="rounded-full bg-brand-blue text-white px-3 py-1 text-sm font-semibold">
-                {plan.price}
-              </span>
+              <div>
+                <p className="brand-subtitle">{plan.abbreviation}</p>
+                <h3 className="mt-2 text-xl font-semibold text-brand-black">{plan.name}</h3>
+              </div>
             </div>
-            <div className="mt-8">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-blue">
-                What&apos;s included
+            <p className="mt-5 text-base leading-7 text-brand-text-muted">{plan.summary}</p>
+
+            <dl className="mt-6 divide-y divide-brand-border border-y border-brand-border">
+              {plan.options.map((option) => (
+                <div key={option.name} className="py-4 first:pt-0 last:pb-0">
+                  <dt className="text-sm font-semibold text-brand-charcoal">{option.name}</dt>
+                  <dd className="mt-2 text-lg font-semibold text-brand-blue">{option.price}</dd>
+                  <p className="mt-1 text-sm leading-6 text-brand-text-muted">{option.detail}</p>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">
+                Included fees & service
               </p>
-              <ul className="mt-4 space-y-3 text-base leading-7 text-brand-text-muted">
+              <ul className="mt-4 space-y-3 text-sm leading-6 text-brand-text-muted">
                 {plan.includes.map((item) => (
-                  <li key={item}>• {item}</li>
+                  <li key={item} className="flex gap-2">
+                    <Beer aria-hidden="true" size={16} className="mt-1 shrink-0 text-brand-gold" />
+                    <span>{item}</span>
+                  </li>
                 ))}
               </ul>
             </div>
-            <Link href="/contact" className="brand-button mt-8">
-              {plan.cta}
+
+            <div className="mt-6 border-t border-brand-border pt-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">Add-ons</p>
+              <ul className="mt-4 space-y-3 text-sm leading-6 text-brand-text-muted">
+                {plan.addOns.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <Coffee aria-hidden="true" size={16} className="mt-1 shrink-0 text-brand-gold" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Link href="/contact" className="brand-button mt-7 w-full">
+              Check availability
             </Link>
           </motion.article>
         ))}
       </div>
+
+      <div className="mt-6 grid gap-4 border-y border-brand-border py-6 sm:mt-8 sm:grid-cols-3 sm:gap-6">
+        {serviceDetails.map(({ Icon, label, detail }) => (
+          <div key={label} className="flex items-start gap-3">
+            <Icon aria-hidden="true" size={20} className="mt-1 shrink-0 text-brand-blue" />
+            <div>
+              <h3 className="font-semibold text-brand-black">{label}</h3>
+              <p className="mt-1 text-sm leading-6 text-brand-text-muted">{detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <motion.section
+        aria-labelledby="booking-policy-heading"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="mt-10 sm:mt-12"
+      >
+        <SectionHeading
+          headingId="booking-policy-heading"
+          eyebrow="Plan with confidence"
+          title="Booking & Cancellation Policy"
+          description="Review payment timing and cancellation terms before reserving your event date."
+        />
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          <article className="brand-card p-6 sm:p-8">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
+              <ReceiptText aria-hidden="true" size={24} strokeWidth={1.8} />
+            </div>
+            <h3 className="mt-5 text-xl font-semibold text-brand-black">Booking schedule</h3>
+            <dl className="mt-6 divide-y divide-brand-border border-y border-brand-border">
+              {bookingPolicies.map(({ Icon, title, detail }) => (
+                <div key={title} className="flex gap-3 py-4 first:pt-0 last:pb-0">
+                  <Icon aria-hidden="true" size={19} className="mt-0.5 shrink-0 text-brand-blue" />
+                  <div>
+                    <dt className="font-semibold text-brand-charcoal">{title}</dt>
+                    <dd className="mt-1 text-sm leading-6 text-brand-text-muted">{detail}</dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
+          </article>
+
+          <article className="brand-card p-6 sm:p-8">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
+              <CalendarCheck2 aria-hidden="true" size={24} strokeWidth={1.8} />
+            </div>
+            <h3 className="mt-5 text-xl font-semibold text-brand-black">Cancellation terms</h3>
+            <dl className="mt-6 divide-y divide-brand-border border-y border-brand-border">
+              {cancellationPolicies.map((policy) => (
+                <div key={policy.threshold} className="py-4 first:pt-0 last:pb-0">
+                  <dt className="font-semibold text-brand-charcoal">{policy.threshold}</dt>
+                  <dd className="mt-1 text-sm leading-6 text-brand-text-muted">{policy.detail}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        </div>
+      </motion.section>
     </motion.section>
   );
 }

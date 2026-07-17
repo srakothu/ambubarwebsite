@@ -8,6 +8,7 @@ import { business, socialLinks } from "@/src/content/site-content";
 import {
   buildInquiryMailto,
   emptyInquiryValues,
+  type InquiryErrors,
   type InquiryValues,
   validateInquiry,
 } from "@/src/lib/inquiry";
@@ -24,7 +25,7 @@ const inputClassName =
 export function ContactPage() {
   const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState<InquiryValues>(emptyInquiryValues);
-  const [errors, setErrors] = useState<Partial<Record<keyof InquiryValues, string>>>({});
+  const [errors, setErrors] = useState<InquiryErrors>({});
   const [status, setStatus] = useState<FormStatus>("idle");
   const [minimumEventDate] = useState(getToday);
 

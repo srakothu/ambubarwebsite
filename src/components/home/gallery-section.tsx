@@ -13,7 +13,7 @@ interface GalleryItem {
 }
 
 interface GallerySectionProps {
-  items?: GalleryItem[];
+  items?: readonly GalleryItem[];
 }
 
 const defaultItems: GalleryItem[] = [

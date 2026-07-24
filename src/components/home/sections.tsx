@@ -8,6 +8,7 @@ import {
   CalendarCheck2,
   CircleDollarSign,
   Coffee,
+  GlassWater,
   MapPin,
   PartyPopper,
   ReceiptText,
@@ -57,28 +58,6 @@ function SectionHeading({
   );
 }
 
-interface FeatureCardProps {
-  eyebrow: string;
-  title: string;
-  description: string;
-}
-
-function FeatureCard({ eyebrow, title, description }: FeatureCardProps) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="brand-card p-6 sm:p-8"
-    >
-      <p className="brand-subtitle">{eyebrow}</p>
-      <h3 className="mt-4 text-xl font-semibold text-brand-black">{title}</h3>
-      <p className="mt-3 text-base leading-7 text-brand-text-muted">{description}</p>
-    </motion.article>
-  );
-}
-
 export function OverviewSection() {
   const highlights = [
     {
@@ -86,18 +65,21 @@ export function OverviewSection() {
       title: "Service you can count on",
       description:
         "After 32 years as a firefighter and first responder, our owner runs Ambu Bar with calm planning and fast, friendly service.",
+      Icon: ShieldCheck,
     },
     {
       eyebrow: "Local energy",
       title: "Built for Pennsylvania events",
       description:
         "We show up ready with a converted ambulance, easy setup, and a beverage experience that keeps guests smiling.",
+      Icon: MapPin,
     },
     {
       eyebrow: "Fun atmosphere",
       title: "A memorable mobile bar",
       description:
         "The ambulance is the centerpiece, and the menu options, including Dirty Soda service, are what guests remember.",
+      Icon: PartyPopper,
     },
   ];
 
@@ -111,48 +93,67 @@ export function OverviewSection() {
       transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section"
     >
-      <div className="grid gap-8 lg:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-        <div className="space-y-5 sm:space-y-6">
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch lg:gap-8">
+        <div className="flex items-center">
           <SectionHeading
             headingId="about-heading"
             eyebrow="About Ambu Bar"
             title="Built from a firefighter’s dedication to service."
             description="Ambu Bar began when a career firefighter and first responder converted a real ambulance into a mobile bar, bringing disciplined hospitality and a fun, memorable concept to events across Pennsylvania."
           />
-          <div className="brand-card brand-card--soft p-8">
-            <p className="brand-subtitle">Our mission</p>
-            <p className="mt-3 text-lg leading-8 text-brand-text-muted">
-              We bring the same reliability and team-first care from the firehouse to your event, with a bar experience that feels polished, welcoming, and easy for hosts to manage.
-            </p>
-          </div>
         </div>
 
-        <motion.div
+        <motion.aside
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
-          className="brand-card p-6 sm:p-8 lg:p-10"
+          className="brand-card relative flex min-h-72 flex-col justify-between overflow-hidden !border-brand-blue-dark !bg-brand-charcoal p-6 text-white sm:p-8 lg:p-10"
         >
-          <p className="brand-subtitle">Why choose Ambu Bar</p>
-          <ul className="mt-6 space-y-4 text-base leading-7 text-brand-text-muted">
-            <li>• Firefighter-owned hospitality with dependable setup and execution.</li>
-            <li>• Beverage options for every guest, from beer and wine to mocktails, coffee, and Dirty Soda.</li>
-            <li>• A standout mobile bar concept that adds energy without creating extra work for the host.</li>
-          </ul>
-        </motion.div>
+          <div aria-hidden="true" className="absolute inset-x-0 top-0 grid h-1.5 grid-cols-3">
+            <span className="bg-brand-blue" />
+            <span className="bg-brand-gold" />
+            <span className="bg-brand-blue" />
+          </div>
+          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-brand-gold-soft">
+            <Ambulance aria-hidden="true" size={25} strokeWidth={1.8} />
+          </span>
+          <div className="mt-8">
+            <p className="brand-subtitle !text-brand-gold-soft">Our mission</p>
+            <p className="mt-4 text-xl leading-8 text-white/90">
+              We bring the same reliability and team-first care from the firehouse to your event, with a bar experience
+              that feels polished, welcoming, and easy for hosts to manage.
+            </p>
+          </div>
+        </motion.aside>
       </div>
 
-      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-3">
-        {highlights.map((item) => (
-          <FeatureCard
-            key={item.title}
-            eyebrow={item.eyebrow}
-            title={item.title}
-            description={item.description}
-          />
-        ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="brand-card mt-8 overflow-hidden sm:mt-10"
+      >
+        <div className="border-b border-brand-border bg-brand-surface px-6 py-5 sm:px-8">
+          <p className="brand-subtitle !text-brand-blue">Why choose Ambu Bar</p>
+          <h3 className="mt-2 text-xl font-semibold text-brand-black sm:text-2xl">
+            Service-minded from setup to last call.
+          </h3>
+        </div>
+        <div className="grid divide-y divide-brand-border md:grid-cols-3 md:divide-x md:divide-y-0">
+          {highlights.map(({ eyebrow, title, description, Icon }) => (
+            <article key={title} className="p-6 sm:p-8">
+              <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
+                <Icon aria-hidden="true" size={23} strokeWidth={1.8} />
+              </span>
+              <p className="brand-subtitle mt-5 !text-brand-blue">{eyebrow}</p>
+              <h4 className="mt-2 text-xl font-semibold text-brand-black">{title}</h4>
+              <p className="mt-3 text-base leading-7 text-brand-charcoal">{description}</p>
+            </article>
+          ))}
+        </div>
+      </motion.div>
     </motion.section>
   );
 }
@@ -241,7 +242,7 @@ export function ProcessSection() {
 }
 
 export function DirtySodaSection() {
-  const dirtySodaMenu = [
+  const signatureSodas = [
     {
       name: "Dirty Dr Pepper",
       profile: "Vanilla syrup, coconut cream, and fresh lime.",
@@ -257,10 +258,6 @@ export function DirtySodaSection() {
     {
       name: "Dirty Mountain Dew",
       profile: "Tropical syrup blend with a creamy float.",
-    },
-    {
-      name: "Custom Dirty Soda Creations",
-      profile: "Guest-built combinations with premium toppings.",
     },
   ] as const;
 
@@ -293,38 +290,76 @@ export function DirtySodaSection() {
             <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-brand-blue/10 blur-2xl" />
             <div className="pointer-events-none absolute -left-12 bottom-0 h-36 w-36 rounded-full bg-brand-gold/15 blur-2xl" />
 
-            <p className="brand-subtitle">Build-your-own menu</p>
-            <h3 className="mt-4 text-2xl font-semibold text-brand-black sm:text-3xl">Signature Dirty Soda combinations</h3>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-brand-text-muted">
+            <p className="brand-subtitle !text-brand-blue">Build-your-own menu</p>
+            <h3 className="mt-4 text-2xl font-semibold text-brand-black sm:text-3xl">Signature Dirty Soda Combinations</h3>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-brand-charcoal">
               One polished service station, multiple flavor paths. Guests can choose a signature recipe or customize
               their own mix with syrups, cream, fruit, and specialty toppings.
             </p>
 
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {dirtySodaMenu.map((item) => (
-                <li key={item.name} className="rounded-xl border border-brand-border bg-white/70 p-4 backdrop-blur-sm">
-                  <p className="text-base font-semibold text-brand-black">{item.name}</p>
-                  <p className="mt-1 text-sm leading-6 text-brand-text-muted">{item.profile}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="mt-6 overflow-hidden rounded-lg border border-brand-border bg-white">
+              <ul className="grid sm:grid-cols-2">
+                {signatureSodas.map((item, index) => (
+                  <li
+                    key={item.name}
+                    className={`flex gap-4 p-5 sm:p-6 ${
+                      index < signatureSodas.length - 1 ? "border-b border-brand-border" : ""
+                    } ${index < 2 ? "sm:border-b" : "sm:border-b-0"} ${
+                      index % 2 === 0 ? "sm:border-r sm:border-brand-border" : ""
+                    }`}
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-surface text-xs font-bold tracking-[0.12em] text-brand-blue">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p className="text-base font-semibold text-brand-black">{item.name}</p>
+                      <p className="mt-1 text-sm leading-6 text-brand-charcoal">{item.profile}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-col gap-4 border-t border-brand-border bg-brand-charcoal p-5 text-white sm:flex-row sm:items-center sm:p-6">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-brand-gold-soft">
+                  <GlassWater aria-hidden="true" size={23} strokeWidth={1.8} />
+                </span>
+                <div>
+                  <p className="text-base font-semibold">Custom Dirty Soda Creations</p>
+                  <p className="mt-1 text-sm leading-6 text-white/80">
+                    Guest-built combinations with premium toppings, mixed their way.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <aside className="flex flex-col justify-between gap-6 border-t border-brand-border bg-brand-surface p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
             <div>
-              <p className="brand-subtitle">Included highlights</p>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-brand-text-muted">
-                <li>Premium soda base options</li>
-                <li>Flavored syrups and cream add-ins</li>
-                <li>Fruit garnishes and specialty toppings</li>
-                <li>Fast setup for high-volume service</li>
+              <p className="brand-subtitle !text-brand-blue">Included highlights</p>
+              <ul className="mt-5 space-y-4 text-sm leading-6 text-brand-charcoal">
+                <li className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
+                  Premium soda base options
+                </li>
+                <li className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
+                  Flavored syrups and cream add-ins
+                </li>
+                <li className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
+                  Fruit garnishes and specialty toppings
+                </li>
+                <li className="flex gap-3">
+                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
+                  Fast setup for high-volume service
+                </li>
               </ul>
             </div>
 
-            <div className="rounded-xl border border-brand-border bg-white p-4 sm:p-5">
-              <p className="brand-subtitle">Perfect with</p>
+            <div className="border-t border-brand-border pt-6">
+              <p className="brand-subtitle !text-brand-blue">Perfect with</p>
               <p className="mt-2 text-lg font-semibold text-brand-black">Mocktail and coffee add-ons</p>
-              <p className="mt-2 text-sm leading-6 text-brand-text-muted">
+              <p className="mt-2 text-sm leading-6 text-brand-charcoal">
                 Pair Dirty Soda service with our mocktail bar or coffee station for a full non-alcoholic experience.
               </p>
               <Link href="/#pricing" className="brand-button mt-4 w-full sm:w-auto">

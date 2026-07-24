@@ -31,7 +31,11 @@ export function PartnersSection({ partners = featuredPartners }: PartnersSection
             <article key={partner.id} className="flex min-w-0 flex-col p-5 sm:p-7 lg:p-6 xl:p-7">
               <div
                 className={`relative aspect-[16/9] overflow-hidden rounded-md border border-brand-border ${
-                  partner.media.surface === "dark" ? "bg-brand-charcoal" : "bg-brand-surface"
+                  partner.media.surface === "dark"
+                    ? "bg-brand-charcoal"
+                    : partner.media.presentation === "logo"
+                      ? "bg-white"
+                      : "bg-brand-surface"
                 }`}
               >
                 <Image
@@ -42,7 +46,9 @@ export function PartnersSection({ partners = featuredPartners }: PartnersSection
                   style={{ objectPosition: partner.media.objectPosition }}
                   className={
                     partner.media.presentation === "logo"
-                      ? "object-contain p-5 sm:p-6"
+                      ? partner.media.inset === "compact"
+                        ? "object-contain p-2 sm:p-3"
+                        : "object-contain p-5 sm:p-6"
                       : "object-cover object-center"
                   }
                 />

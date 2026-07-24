@@ -108,6 +108,7 @@ export interface PartnerMedia {
   alt: string;
   presentation: "logo" | "photo";
   surface?: "light" | "dark";
+  inset?: "compact" | "standard";
   objectPosition?: string;
 }
 
@@ -134,6 +135,7 @@ export const featuredPartners: FeaturedPartner[] = [
       src: "/images/partners/ridgewood-winery-logo.png",
       alt: "Ridgewood Winery logo",
       presentation: "logo",
+      inset: "compact",
     },
   },
   {

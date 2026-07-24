@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
-import { CalendarDays, Mail, MapPin, Phone } from "lucide-react";
+import { CalendarDays, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import { SiteShell } from "@/src/components/layout";
 import { business, socialLinks } from "@/src/content/site-content";
 import {
@@ -287,12 +287,26 @@ export function ContactPage() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="brand-button brand-button--secondary"
+                    className="brand-button brand-button--secondary gap-2 focus-visible:outline-brand-blue"
+                    aria-label={`Follow ${business.name} on ${item.label} (opens in a new tab)`}
                   >
                     {item.label}
+                    <ExternalLink aria-hidden="true" size={16} />
                   </a>
                 ))}
-                <a href={business.emailHref} className="brand-button brand-button--secondary">
+                <a
+                  href={business.phoneHref}
+                  className="brand-button brand-button--secondary gap-2 focus-visible:outline-brand-blue"
+                  aria-label={`Call or text Ambu Bar at ${business.phone}`}
+                >
+                  <Phone aria-hidden="true" size={16} />
+                  Call or text
+                </a>
+                <a
+                  href={business.emailHref}
+                  className="brand-button brand-button--secondary gap-2 focus-visible:outline-brand-blue"
+                  aria-label={`Email Ambu Bar at ${business.email}`}
+                >
                   <Mail aria-hidden="true" size={16} />
                   Email
                 </a>

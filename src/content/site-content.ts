@@ -69,10 +69,10 @@ export const navigationGroups: readonly NavigationGroup[] = [
     ],
   },
   {
-    label: "Partners",
+    label: "Preferred Partners",
     items: [
       {
-        label: "Wineries, Breweries & Spirits",
+        label: "Preferred Partners",
         href: "/#partners",
         isSectionLink: true,
       },
@@ -101,7 +101,15 @@ export interface PublicEvent {
 
 export const publicEvents: PublicEvent[] = [];
 
-export type PartnerCategory = "Winery" | "Brewery" | "Spirits";
+export type PartnerCategory = "Winery" | "Brewery" | "Coffee" | "Spirits";
+
+export interface PartnerMedia {
+  src: string;
+  alt: string;
+  presentation: "logo" | "photo";
+  surface?: "light" | "dark";
+  objectPosition?: string;
+}
 
 export interface FeaturedPartner {
   id: string;
@@ -110,8 +118,7 @@ export interface FeaturedPartner {
   summary: string;
   websiteUrl: string;
   facebookUrl?: string;
-  logoSrc?: string;
-  logoAlt?: string;
+  media: PartnerMedia;
 }
 
 export const featuredPartners: FeaturedPartner[] = [
@@ -120,10 +127,41 @@ export const featuredPartners: FeaturedPartner[] = [
     name: "Ridgewood Winery",
     category: "Winery",
     summary:
-      "Ridgewood Winery is an award-winning winery in Berks County with tasting room locations in Birdsboro and Bechtelsville, Pennsylvania.",
+      "An award-winning Berks County winery with tasting rooms in Birdsboro and Bechtelsville, Pennsylvania.",
     websiteUrl: "https://www.ridgewoodwinery.com/",
     facebookUrl: "https://www.facebook.com/ridgewoodwinery/",
-    logoSrc: "/images/image000000.heic",
-    logoAlt: "Ridgewood Winery logo",
+    media: {
+      src: "/images/partners/ridgewood-winery-logo.png",
+      alt: "Ridgewood Winery logo",
+      presentation: "logo",
+    },
+  },
+  {
+    id: "firehouse-coffee",
+    name: "Firehouse Coffee",
+    category: "Coffee",
+    summary:
+      "Ambu Bar is proud to be part of Firehouse Coffee’s Bean Team. Firehouse Coffee is based in Maxatawny, Pennsylvania.",
+    websiteUrl: "https://firehousecoffee.com/",
+    media: {
+      src: "/images/partners/firehouse-coffee-bean-team.jpg",
+      alt: "Firehouse Coffee Bean Team display",
+      presentation: "photo",
+      objectPosition: "center 43%",
+    },
+  },
+  {
+    id: "boardroom-spirits",
+    name: "Boardroom Spirits",
+    category: "Spirits",
+    summary:
+      "A sustainable, family-owned distillery based in Lansdale, Pennsylvania, offering spirits and ready-to-drink cocktails.",
+    websiteUrl: "https://boardroomspirits.com/",
+    media: {
+      src: "/images/partners/boardroom-spirits-logo.png",
+      alt: "Boardroom Spirits logo",
+      presentation: "logo",
+      surface: "dark",
+    },
   },
 ];

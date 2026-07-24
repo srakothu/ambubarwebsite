@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, ExternalLink, Mail, Menu, Phone, X } from "lucide-react";
 import {
   business,
   navigationCta,
   navigationDirectLinks,
   navigationGroups,
+  socialLinks,
   type NavigationItem,
 } from "@/src/content/site-content";
 
@@ -115,6 +116,47 @@ export function SiteNav() {
 
   return (
     <header ref={headerRef} className={`sticky top-0 z-50 border-b transition-all duration-300 ease-out backdrop-blur-sm ${shellClasses}`}>
+      <nav aria-label="Contact and social media" className="bg-brand-blue text-white">
+        <div className="mx-auto flex min-h-10 max-w-6xl items-center justify-between gap-3 px-4 text-xs font-semibold sm:px-6 lg:px-8">
+          <div className="flex min-w-0 items-center gap-1 sm:gap-2">
+            <a
+              href={business.phoneHref}
+              className="inline-flex min-h-9 items-center gap-2 rounded-md px-2 transition-colors hover:bg-white/10 focus-visible:outline-brand-gold"
+              aria-label={`Call or text Ambu Bar at ${business.phone}`}
+            >
+              <Phone aria-hidden="true" size={15} />
+              <span className="sm:hidden">Call</span>
+              <span className="hidden sm:inline">{business.phone}</span>
+            </a>
+            <a
+              href={business.emailHref}
+              className="hidden min-h-9 items-center gap-2 rounded-md px-2 transition-colors hover:bg-white/10 focus-visible:outline-brand-gold md:inline-flex"
+              aria-label={`Email Ambu Bar at ${business.email}`}
+            >
+              <Mail aria-hidden="true" size={15} />
+              {business.email}
+            </a>
+          </div>
+
+          <ul className="flex shrink-0 items-center gap-1 sm:gap-2">
+            {socialLinks.map((link) => (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-9 items-center gap-1.5 rounded-md px-2 transition-colors hover:bg-white/10 focus-visible:outline-brand-gold"
+                  aria-label={`Follow ${business.name} on ${link.label} (opens in a new tab)`}
+                >
+                  {link.label}
+                  <ExternalLink aria-hidden="true" size={13} className="hidden sm:block" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
         <Link
           href="/#home"

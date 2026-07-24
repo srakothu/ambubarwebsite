@@ -123,5 +123,7 @@ export const featuredPartners: FeaturedPartner[] = [
       "Ridgewood Winery is an award-winning winery in Berks County with tasting room locations in Birdsboro and Bechtelsville, Pennsylvania.",
     websiteUrl: "https://www.ridgewoodwinery.com/",
     facebookUrl: "https://www.facebook.com/ridgewoodwinery/",
+    logoSrc: "/images/image000000.heic",
+    logoAlt: "Ridgewood Winery logo",
   },
 ];

@@ -242,11 +242,26 @@ export function ProcessSection() {
 
 export function DirtySodaSection() {
   const dirtySodaMenu = [
-    "Dirty Dr Pepper",
-    "Dirty Coke",
-    "Dirty Sprite",
-    "Dirty Mountain Dew",
-    "Custom Dirty Soda Creations",
+    {
+      name: "Dirty Dr Pepper",
+      profile: "Vanilla syrup, coconut cream, and fresh lime.",
+    },
+    {
+      name: "Dirty Coke",
+      profile: "Coconut, house vanilla, and a citrus finish.",
+    },
+    {
+      name: "Dirty Sprite",
+      profile: "Peach syrup, cream, and bright fruit garnish.",
+    },
+    {
+      name: "Dirty Mountain Dew",
+      profile: "Tropical syrup blend with a creamy float.",
+    },
+    {
+      name: "Custom Dirty Soda Creations",
+      profile: "Guest-built combinations with premium toppings.",
+    },
   ] as const;
 
   return (
@@ -266,21 +281,59 @@ export function DirtySodaSection() {
         description="A customizable non-alcoholic beverage experience featuring premium sodas, flavored syrups, cream, fruit garnishes, and specialty toppings."
       />
 
-      <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
-        {dirtySodaMenu.map((item, index) => (
-          <motion.article
-            key={item}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
-            className="brand-card brand-card--soft p-5 sm:p-6 lg:p-8"
-          >
-            <p className="brand-subtitle">Drink menu</p>
-            <h3 className="mt-4 text-xl font-semibold text-brand-black">{item}</h3>
-          </motion.article>
-        ))}
-      </div>
+      <motion.article
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="brand-card mt-8 overflow-hidden sm:mt-10"
+      >
+        <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="relative overflow-hidden p-6 sm:p-8 lg:p-10">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-brand-blue/10 blur-2xl" />
+            <div className="pointer-events-none absolute -left-12 bottom-0 h-36 w-36 rounded-full bg-brand-gold/15 blur-2xl" />
+
+            <p className="brand-subtitle">Build-your-own menu</p>
+            <h3 className="mt-4 text-2xl font-semibold text-brand-black sm:text-3xl">Signature Dirty Soda combinations</h3>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-brand-text-muted">
+              One polished service station, multiple flavor paths. Guests can choose a signature recipe or customize
+              their own mix with syrups, cream, fruit, and specialty toppings.
+            </p>
+
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {dirtySodaMenu.map((item) => (
+                <li key={item.name} className="rounded-xl border border-brand-border bg-white/70 p-4 backdrop-blur-sm">
+                  <p className="text-base font-semibold text-brand-black">{item.name}</p>
+                  <p className="mt-1 text-sm leading-6 text-brand-text-muted">{item.profile}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <aside className="flex flex-col justify-between gap-6 border-t border-brand-border bg-brand-surface p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+            <div>
+              <p className="brand-subtitle">Included highlights</p>
+              <ul className="mt-4 space-y-3 text-sm leading-6 text-brand-text-muted">
+                <li>Premium soda base options</li>
+                <li>Flavored syrups and cream add-ins</li>
+                <li>Fruit garnishes and specialty toppings</li>
+                <li>Fast setup for high-volume service</li>
+              </ul>
+            </div>
+
+            <div className="rounded-xl border border-brand-border bg-white p-4 sm:p-5">
+              <p className="brand-subtitle">Perfect with</p>
+              <p className="mt-2 text-lg font-semibold text-brand-black">Mocktail and coffee add-ons</p>
+              <p className="mt-2 text-sm leading-6 text-brand-text-muted">
+                Pair Dirty Soda service with our mocktail bar or coffee station for a full non-alcoholic experience.
+              </p>
+              <Link href="/#pricing" className="brand-button mt-4 w-full sm:w-auto">
+                View Pricing Options
+              </Link>
+            </div>
+          </aside>
+        </div>
+      </motion.article>
     </motion.section>
   );
 }

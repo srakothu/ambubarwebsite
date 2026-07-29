@@ -5,7 +5,9 @@ import {
   ExperienceSection,
   GallerySection,
   HeroSection,
+  OnlineStoreSection,
   OverviewSection,
+  PatchExchangeSection,
   PartnersSection,
   PricingSection,
   ProcessSection,
@@ -22,8 +24,10 @@ export default function Home() {
       <ProcessSection />
       <DirtySodaSection />
       <GallerySection />
+      <OnlineStoreSection />
       <EventsSection />
       <PartnersSection />
+      <PatchExchangeSection />
       <ExperienceSection />
       <PricingSection />
       <ContactSection />

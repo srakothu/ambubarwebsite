@@ -1,11 +1,57 @@
-export const footerQuickLinks = [
-      { label: "About", href: "/#about", isSectionLink: true },
-      { label: "Team", href: "/#team", isSectionLink: true },
-      { label: "Services", href: "/#services", isSectionLink: true },
+export interface NavigationItem {
+  label: string;
+  href: string;
+  isSectionLink: boolean;
+  isExternal?: boolean;
+}
+
+export interface OnlineStoreConfig {
+  onlineStoreUrl: string | null;
+  onlineStoreIsLive: boolean;
+}
+
+export const onlineStore: OnlineStoreConfig = {
+  // Supply the vendor URL and set this flag to true when the store launches.
+  onlineStoreUrl: null,
+  onlineStoreIsLive: false,
+};
+
+function getOnlineStoreDestination(config: OnlineStoreConfig) {
+  if (config.onlineStoreIsLive && config.onlineStoreUrl) {
+    try {
+      const url = new URL(config.onlineStoreUrl);
+
+      if (url.protocol === "https:" || url.protocol === "http:") {
+        return { href: url.toString(), isExternal: true } as const;
+      }
+    } catch {
+      // An incomplete or invalid vendor URL falls back to the local preview page.
+    }
+  }
+
+  return { href: "/merchandise", isExternal: false } as const;
+}
+
+export const onlineStoreDestination = getOnlineStoreDestination(onlineStore);
+
+export const footerQuickLinks: readonly NavigationItem[] = [
+  { label: "About", href: "/#about", isSectionLink: true },
+  { label: "Team", href: "/#team", isSectionLink: true },
+  { label: "Services", href: "/#services", isSectionLink: true },
   { label: "Dirty Soda", href: "/#dirty-soda", isSectionLink: true },
-      { label: "Gallery", href: "/#gallery", isSectionLink: true },
-      { label: "Merchandise", href: "/merchandise", isSectionLink: false },
-      { label: "Contact", href: "/contact", isSectionLink: false },
+  { label: "Gallery", href: "/#gallery", isSectionLink: true },
+  {
+    label: "Patch Exchange",
+    href: "/#patch-exchange",
+    isSectionLink: true,
+  },
+  {
+    label: "Online Store",
+    href: onlineStoreDestination.href,
+    isSectionLink: false,
+    isExternal: onlineStoreDestination.isExternal,
+  },
+  { label: "Contact", href: "/contact", isSectionLink: false },
 ];
 
 export const socialLinks = [
@@ -27,21 +73,6 @@ export const business = {
   website: "https://www.ambubar.com",
   tagline: "For all of your beverage emergencies, call on us, your Thirst Responders.",
 } as const;
-
-export interface MerchandiseDetails {
-  shopUrl: string | null;
-}
-
-export const merchandise: MerchandiseDetails = {
-  // Replace this with the pop-up shop URL when the vendor provides it.
-  shopUrl: null,
-};
-
-export interface NavigationItem {
-  label: string;
-  href: string;
-  isSectionLink: boolean;
-}
 
 export interface NavigationGroup {
   label: string;
@@ -65,6 +96,11 @@ export const navigationGroups: readonly NavigationGroup[] = [
       { label: "Team", href: "/#team", isSectionLink: true },
       { label: "Gallery", href: "/#gallery", isSectionLink: true },
       { label: "Events", href: "/#events", isSectionLink: true },
+      {
+        label: "Patch Exchange",
+        href: "/#patch-exchange",
+        isSectionLink: true,
+      },
       { label: "Ambu Bar Difference", href: "/#experience", isSectionLink: true },
     ],
   },
@@ -81,7 +117,12 @@ export const navigationGroups: readonly NavigationGroup[] = [
 ];
 
 export const navigationDirectLinks: readonly NavigationItem[] = [
-  { label: "Merchandise", href: "/merchandise", isSectionLink: false },
+  {
+    label: "Online Store",
+    href: onlineStoreDestination.href,
+    isSectionLink: false,
+    isExternal: onlineStoreDestination.isExternal,
+  },
 ];
 
 export const navigationCta: NavigationItem = {
@@ -120,6 +161,7 @@ export interface FeaturedPartner {
   websiteUrl: string;
   facebookUrl?: string;
   media: PartnerMedia;
+  availabilityNote?: string;
 }
 
 export const featuredPartners: FeaturedPartner[] = [
@@ -158,6 +200,10 @@ export const featuredPartners: FeaturedPartner[] = [
     category: "Spirits",
     summary:
       "A sustainable, family-owned distillery based in Lansdale, Pennsylvania, offering spirits and ready-to-drink cocktails.",
+    // Keep this text-only until an authorized original beer-can photo is supplied.
+    // The `media` field below is the integration point for approved partner imagery.
+    availabilityNote:
+      "Gamer Brewing beer is also available through Boardroom Spirits. Ask about availability for your event.",
     websiteUrl: "https://boardroomspirits.com/",
     media: {
       src: "/images/partners/boardroom-spirits-logo.png",

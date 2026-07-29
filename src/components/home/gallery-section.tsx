@@ -38,8 +38,8 @@ const defaultItems: GalleryItem[] = [
   {
     src: "/images/7c5f0b73-c4fd-4e3b-83dc-9b01a308904c.jpeg",
     alt: "Blue Ambu Bar Thirst Responder T-shirt with the Dial Wine-1-1 design",
-    title: "First-response merch",
-    description: "A glimpse at the branded apparel planned for the Ambu Bar shop.",
+    title: "First-response gear",
+    description: "A glimpse at the branded apparel planned for the Ambu Bar Online Store.",
   },
   {
     src: "/images/5533a687-7fe0-462c-97b5-c7ba4cae07bb.jpeg",

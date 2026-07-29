@@ -439,7 +439,15 @@ export function PricingSection() {
     },
   ];
 
-  const serviceDetails = [
+  const serviceDetails: Array<{
+    Icon: LucideIcon;
+    label: string;
+    detail: string;
+    notice?: {
+      heading: string;
+      detail: string;
+    };
+  }> = [
     {
       Icon: CalendarCheck2,
       label: "Setup & cleanup",
@@ -453,7 +461,13 @@ export function PricingSection() {
     {
       Icon: MapPin,
       label: "Travel & permits",
-      detail: "B.L.S. includes 25 miles; A.L.S. and M.C.I. include 30 miles. Beyond the included distance, travel is $2 per mile one way. Alcohol service requires a $75 permit fee.",
+      detail:
+        "B.L.S. includes 25 miles; A.L.S. and M.C.I. include 30 miles. Beyond the included distance, travel is $2 per mile one way.",
+      notice: {
+        heading: "Public venue permit fees",
+        detail:
+          "For bar service at a public venue, additional fees may apply for permits required for alcohol sales.",
+      },
     },
   ];
 
@@ -565,12 +579,18 @@ export function PricingSection() {
       </div>
 
       <div className="mt-6 grid gap-4 border-y border-brand-border py-6 sm:mt-8 sm:grid-cols-3 sm:gap-6">
-        {serviceDetails.map(({ Icon, label, detail }) => (
+        {serviceDetails.map(({ Icon, label, detail, notice }) => (
           <div key={label} className="flex items-start gap-3">
             <Icon aria-hidden="true" size={20} className="mt-1 shrink-0 text-brand-blue" />
             <div>
               <h3 className="font-semibold text-brand-black">{label}</h3>
               <p className="mt-1 text-sm leading-6 text-brand-text-muted">{detail}</p>
+              {notice ? (
+                <aside className="mt-4 rounded-md border border-brand-gold/60 bg-brand-gold/10 p-4">
+                  <h4 className="text-sm font-semibold text-brand-black">{notice.heading}</h4>
+                  <p className="mt-1 text-sm leading-6 text-brand-charcoal">{notice.detail}</p>
+                </aside>
+              ) : null}
             </div>
           </div>
         ))}

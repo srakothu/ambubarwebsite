@@ -40,8 +40,9 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--brand-gold);
-  outline-offset: 3px;
+  outline: 3px solid var(--brand-white);
+  outline-offset: 0;
+  box-shadow: 0 0 0 6px var(--brand-blue-dark);
 }
 
 ::selection {
@@ -139,7 +140,7 @@ body {
   }
 
   .brand-subtitle {
-    color: var(--brand-gold);
+    color: var(--brand-blue);
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.16em;

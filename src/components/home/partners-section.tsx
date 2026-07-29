@@ -58,6 +58,11 @@ export function PartnersSection({ partners = featuredPartners }: PartnersSection
                 <p className="brand-subtitle !text-brand-blue">{partner.category}</p>
                 <h3 className="mt-2 text-xl font-semibold text-brand-black">{partner.name}</h3>
                 <p className="mt-3 text-sm leading-6 text-brand-charcoal">{partner.summary}</p>
+                {partner.availabilityNote ? (
+                  <p className="mt-4 rounded-md border border-brand-border bg-brand-surface p-4 text-sm leading-6 text-brand-blue-dark">
+                    {partner.availabilityNote}
+                  </p>
+                ) : null}
               </div>
 
               <div className="mt-auto flex flex-col gap-3 pt-6">

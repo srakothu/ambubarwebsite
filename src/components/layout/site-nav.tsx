@@ -17,20 +17,34 @@ interface NavigationLinkProps {
   item: NavigationItem;
   className: string;
   onNavigate?: () => void;
-  role?: "menuitem";
 }
 
-function NavigationLink({ item, className, onNavigate, role }: NavigationLinkProps) {
+function NavigationLink({ item, className, onNavigate }: NavigationLinkProps) {
+  if (item.isExternal) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        onClick={onNavigate}
+      >
+        {item.label}
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
+
   if (item.isSectionLink) {
     return (
-      <a href={item.href} className={className} onClick={onNavigate} role={role}>
+      <a href={item.href} className={className} onClick={onNavigate}>
         {item.label}
       </a>
     );
   }
 
   return (
-    <Link href={item.href} className={className} onClick={onNavigate} role={role}>
+    <Link href={item.href} className={className} onClick={onNavigate}>
       {item.label}
     </Link>
   );
@@ -97,10 +111,6 @@ export function SiteNav() {
     ? "border-brand-border bg-brand-white/95 text-brand-charcoal shadow-[0_10px_35px_rgba(16,50,77,0.12)]"
     : "border-[rgba(255,255,255,0.14)] bg-brand-charcoal text-white";
 
-  const linkClasses = isScrolled
-    ? "text-brand-charcoal hover:text-brand-gold"
-    : "text-white/95 hover:text-brand-gold-soft";
-
   const buttonClasses = isScrolled
     ? "border-brand-border text-brand-charcoal"
     : "border-white/70 text-white";
@@ -108,6 +118,10 @@ export function SiteNav() {
   const desktopMenuButtonClasses = isScrolled
     ? "text-brand-charcoal hover:text-brand-gold"
     : "text-white/95 hover:text-brand-gold-soft";
+
+  const storeLinkClasses = isScrolled
+    ? "border-brand-blue/35 bg-brand-blue/8 text-brand-blue hover:border-brand-blue hover:bg-brand-blue hover:text-white"
+    : "border-brand-gold-soft/65 bg-white/10 text-brand-gold-soft hover:bg-brand-gold-soft hover:text-brand-blue-dark";
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -194,7 +208,6 @@ export function SiteNav() {
                   type="button"
                   aria-expanded={isOpen}
                   aria-controls={menuId}
-                  aria-haspopup="menu"
                   className={`inline-flex min-h-11 items-center gap-1.5 px-1 transition-colors duration-200 ${desktopMenuButtonClasses}`}
                   onClick={() => setOpenDesktopGroup(isOpen ? null : group.label)}
                 >
@@ -208,15 +221,12 @@ export function SiteNav() {
                 {isOpen ? (
                   <div
                     id={menuId}
-                    role="menu"
-                    aria-label={group.label}
                     className="absolute left-0 top-full z-10 mt-3 min-w-60 rounded-md border border-brand-border bg-brand-white p-2 text-brand-charcoal shadow-[0_18px_38px_rgba(16,50,77,0.16)]"
                   >
                     {group.items.map((item) => (
                       <NavigationLink
                         key={item.label}
                         item={item}
-                        role="menuitem"
                         className="block rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-brand-surface hover:text-brand-blue focus:bg-brand-surface focus:text-brand-blue"
                         onNavigate={() => setOpenDesktopGroup(null)}
                       />
@@ -230,7 +240,7 @@ export function SiteNav() {
             <NavigationLink
               key={item.label}
               item={item}
-              className={`inline-flex min-h-11 items-center px-1 transition-colors duration-200 ${linkClasses}`}
+              className={`inline-flex min-h-11 items-center rounded-md border px-3 text-xs font-bold uppercase tracking-[0.12em] transition-colors duration-200 ${storeLinkClasses}`}
             />
           ))}
           <NavigationLink item={navigationCta} className="brand-button px-4 py-2 text-xs" />
@@ -312,7 +322,7 @@ export function SiteNav() {
                 <NavigationLink
                   key={item.label}
                   item={item}
-                  className="block rounded-md px-3 py-2.5 text-base font-semibold transition-colors hover:bg-white/10 hover:text-brand-gold-soft"
+                  className="block rounded-md border border-brand-gold-soft/50 bg-white/5 px-3 py-3 text-center text-sm font-bold uppercase tracking-[0.12em] text-brand-gold-soft transition-colors hover:bg-white/10 hover:text-white"
                   onNavigate={closeMobileMenu}
                 />
               ))}

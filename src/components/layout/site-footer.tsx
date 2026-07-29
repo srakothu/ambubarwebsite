@@ -28,7 +28,7 @@ export function SiteFooter() {
                 className="h-auto w-full"
               />
             </Link>
-            <p className="brand-subtitle text-brand-gold-soft">{business.name}</p>
+            <p className="brand-subtitle !text-brand-gold-soft">{business.name}</p>
             <h2 className="brand-heading text-2xl sm:text-3xl">
               A real ambulance. A memorable bar. Service your guests can count on.
             </h2>
@@ -44,7 +44,17 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-3 text-sm text-zinc-300">
               {footerQuickLinks.map((link) => (
                 <li key={link.label}>
-                  {link.isSectionLink ? (
+                  {link.isExternal ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-brand-gold-soft"
+                    >
+                      {link.label}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  ) : link.isSectionLink ? (
                     <a href={link.href} className="transition-colors hover:text-brand-gold-soft">
                       {link.label}
                     </a>

@@ -490,7 +490,7 @@ export function PricingSection() {
       aria-labelledby="pricing-heading"
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.01 }}
       transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >

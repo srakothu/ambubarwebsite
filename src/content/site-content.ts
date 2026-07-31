@@ -162,6 +162,7 @@ export interface FeaturedPartner {
   facebookUrl?: string;
   media: PartnerMedia;
   availabilityNote?: string;
+  supportingMedia?: PartnerMedia;
 }
 
 export const featuredPartners: FeaturedPartner[] = [
@@ -200,10 +201,14 @@ export const featuredPartners: FeaturedPartner[] = [
     category: "Spirits",
     summary:
       "A sustainable, family-owned distillery based in Lansdale, Pennsylvania, offering spirits and ready-to-drink cocktails.",
-    // Keep this text-only until an authorized original beer-can photo is supplied.
-    // The `media` field below is the integration point for approved partner imagery.
     availabilityNote:
       "Gamer Brewing beer is also available through Boardroom Spirits. Ask about availability for your event.",
+    supportingMedia: {
+      src: "/images/partners/gamer-brewing-beer-cans.jpg",
+      alt: "Assorted Gamer Brewing beer cans",
+      presentation: "photo",
+      objectPosition: "center top",
+    },
     websiteUrl: "https://boardroomspirits.com/",
     media: {
       src: "/images/partners/boardroom-spirits-logo.png",

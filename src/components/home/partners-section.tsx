@@ -63,6 +63,18 @@ export function PartnersSection({ partners = featuredPartners }: PartnersSection
                     {partner.availabilityNote}
                   </p>
                 ) : null}
+                {partner.supportingMedia ? (
+                  <div className="relative mt-4 aspect-[16/7] overflow-hidden rounded-md border border-brand-border bg-brand-surface">
+                    <Image
+                      src={partner.supportingMedia.src}
+                      alt={partner.supportingMedia.alt}
+                      fill
+                      sizes="(max-width: 640px) calc(100vw - 5.5rem), (max-width: 1023px) calc(100vw - 6rem), 21rem"
+                      style={{ objectPosition: partner.supportingMedia.objectPosition }}
+                      className="object-cover"
+                    />
+                  </div>
+                ) : null}
               </div>
 
               <div className="mt-auto flex flex-col gap-3 pt-6">

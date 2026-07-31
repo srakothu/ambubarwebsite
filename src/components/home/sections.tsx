@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -244,20 +245,24 @@ export function ProcessSection() {
 export function DirtySodaSection() {
   const signatureSodas = [
     {
-      name: "Dirty Dr Pepper",
-      profile: "Vanilla syrup, coconut cream, and fresh lime.",
+      name: "Code Blue Razz",
+      profile: "Blue raspberry syrup, vanilla syrup, lemon-lime soda, and cream.",
     },
     {
-      name: "Dirty Coke",
-      profile: "Coconut, house vanilla, and a citrus finish.",
+      name: "Smoke Condition",
+      profile: "Vanilla syrup, root beer, and cream. Inspired by a classic root beer float.",
     },
     {
-      name: "Dirty Sprite",
-      profile: "Peach syrup, cream, and bright fruit garnish.",
+      name: "Pink Lady",
+      profile: "Strawberry syrup, vanilla syrup, lemon-lime soda, and cream.",
     },
     {
-      name: "Dirty Mountain Dew",
-      profile: "Tropical syrup blend with a creamy float.",
+      name: "Health Elixer",
+      profile: "Strawberry syrup, banana syrup, banana puree, and lemon-lime soda.",
+    },
+    {
+      name: "IV Drip",
+      profile: "Coconut syrup, Dr Pepper, and cream.",
     },
   ] as const;
 
@@ -273,9 +278,9 @@ export function DirtySodaSection() {
     >
       <SectionHeading
         headingId="dirty-soda-heading"
-        eyebrow="Dirty Soda Bar"
-        title="A customizable non-alcoholic beverage experience."
-        description="A customizable non-alcoholic beverage experience featuring premium sodas, flavored syrups, cream, fruit garnishes, and specialty toppings."
+        eyebrow="Dirty Soda & Mocktail Upgrades"
+        title="Signature recipes with emergency-room flair."
+        description="Add a polished non-alcoholic beverage experience featuring premium sodas, flavored syrups, cream, fruit purees, and playful Ambu Bar recipes."
       />
 
       <motion.article
@@ -285,28 +290,43 @@ export function DirtySodaSection() {
         transition={{ duration: 0.45, ease: "easeOut" }}
         className="brand-card mt-8 overflow-hidden sm:mt-10"
       >
-        <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="grid lg:grid-cols-[0.8fr_1.2fr]">
+          <figure className="border-b border-brand-border bg-brand-charcoal p-4 sm:p-6 lg:border-b-0 lg:border-r lg:p-8">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-brand-surface">
+              <Image
+                src="/images/dirty-soda/code-blue-razz.jpg"
+                alt="Blue Code Blue Razz dirty soda topped with cream"
+                fill
+                sizes="(max-width: 1023px) calc(100vw - 5rem), 28rem"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="flex items-center gap-3 px-1 pb-1 pt-4 text-white">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-brand-gold-soft">
+                <GlassWater aria-hidden="true" size={21} strokeWidth={1.8} />
+              </span>
+              <div>
+                <p className="font-semibold">Code Blue Razz</p>
+                <p className="mt-0.5 text-sm text-white/75">A bright, creamy signature Dirty Soda.</p>
+              </div>
+            </figcaption>
+          </figure>
+
           <div className="relative overflow-hidden p-6 sm:p-8 lg:p-10">
             <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-brand-blue/10 blur-2xl" />
             <div className="pointer-events-none absolute -left-12 bottom-0 h-36 w-36 rounded-full bg-brand-gold/15 blur-2xl" />
 
-            <p className="brand-subtitle !text-brand-blue">Build-your-own menu</p>
-            <h3 className="mt-4 text-2xl font-semibold text-brand-black sm:text-3xl">Signature Dirty Soda Combinations</h3>
+            <p className="brand-subtitle !text-brand-blue">Signature menu</p>
+            <h3 className="mt-4 text-2xl font-semibold text-brand-black sm:text-3xl">Dirty Soda Creations</h3>
             <p className="mt-3 max-w-2xl text-base leading-7 text-brand-charcoal">
-              One polished service station, multiple flavor paths. Guests can choose a signature recipe or customize
-              their own mix with syrups, cream, fruit, and specialty toppings.
+              Choose a featured recipe or ask about including the Dirty Soda & Mocktail upgrade with your package.
             </p>
 
-            <div className="mt-6 overflow-hidden rounded-lg border border-brand-border bg-white">
-              <ul className="grid sm:grid-cols-2">
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                 {signatureSodas.map((item, index) => (
                   <li
                     key={item.name}
-                    className={`flex gap-4 p-5 sm:p-6 ${
-                      index < signatureSodas.length - 1 ? "border-b border-brand-border" : ""
-                    } ${index < 2 ? "sm:border-b" : "sm:border-b-0"} ${
-                      index % 2 === 0 ? "sm:border-r sm:border-brand-border" : ""
-                    }`}
+                    className="relative flex gap-4 rounded-lg border border-brand-border bg-white p-5"
                   >
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-surface text-xs font-bold tracking-[0.12em] text-brand-blue">
                       {String(index + 1).padStart(2, "0")}
@@ -317,56 +337,24 @@ export function DirtySodaSection() {
                     </div>
                   </li>
                 ))}
-              </ul>
+            </ul>
 
-              <div className="flex flex-col gap-4 border-t border-brand-border bg-brand-charcoal p-5 text-white sm:flex-row sm:items-center sm:p-6">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-brand-gold-soft">
-                  <GlassWater aria-hidden="true" size={23} strokeWidth={1.8} />
-                </span>
-                <div>
-                  <p className="text-base font-semibold">Custom Dirty Soda Creations</p>
-                  <p className="mt-1 text-sm leading-6 text-white/80">
-                    Guest-built combinations with premium toppings, mixed their way.
-                  </p>
-                </div>
+            <div className="mt-6 flex flex-col gap-4 rounded-lg bg-brand-charcoal p-5 text-white sm:flex-row sm:items-center sm:p-6">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-brand-gold-soft">
+                <GlassWater aria-hidden="true" size={23} strokeWidth={1.8} />
+              </span>
+              <div>
+                <p className="text-base font-semibold">Dirty Soda & Mocktail Upgrade</p>
+                <p className="mt-1 text-sm leading-6 text-white/80">
+                  $50 for Triage or $50 per 50 guests for B.L.S. and A.L.S.
+                </p>
               </div>
             </div>
+
+            <Link href="/#pricing" className="brand-button mt-6 w-full sm:w-auto">
+              Compare Package Upgrades
+            </Link>
           </div>
-
-          <aside className="flex flex-col justify-between gap-6 border-t border-brand-border bg-brand-surface p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
-            <div>
-              <p className="brand-subtitle !text-brand-blue">Included highlights</p>
-              <ul className="mt-5 space-y-4 text-sm leading-6 text-brand-charcoal">
-                <li className="flex gap-3">
-                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
-                  Premium soda base options
-                </li>
-                <li className="flex gap-3">
-                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
-                  Flavored syrups and cream add-ins
-                </li>
-                <li className="flex gap-3">
-                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
-                  Fruit garnishes and specialty toppings
-                </li>
-                <li className="flex gap-3">
-                  <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-blue" />
-                  Fast setup for high-volume service
-                </li>
-              </ul>
-            </div>
-
-            <div className="border-t border-brand-border pt-6">
-              <p className="brand-subtitle !text-brand-blue">Perfect with</p>
-              <p className="mt-2 text-lg font-semibold text-brand-black">Mocktail and coffee add-ons</p>
-              <p className="mt-2 text-sm leading-6 text-brand-charcoal">
-                Pair Dirty Soda service with our mocktail bar or coffee station for a full non-alcoholic experience.
-              </p>
-              <Link href="/#pricing" className="brand-button mt-4 w-full sm:w-auto">
-                View Pricing Options
-              </Link>
-            </div>
-          </aside>
         </div>
       </motion.article>
     </motion.section>
@@ -376,98 +364,95 @@ export function DirtySodaSection() {
 export function PricingSection() {
   const plans = [
     {
-      abbreviation: "B.L.S.",
-      name: "Basic Liquor Service",
-      summary: "Beer and wine service for 12 to 30 guests.",
+      abbreviation: "Package 1",
+      name: "Triage",
+      summary: "Beer & Wine Service for Intimate Events",
       Icon: Wine,
-      options: [
-        {
-          name: "Satellite Bar & Tent",
-          price: "$100 / hour",
-          detail: "2-hour minimum",
-        },
-        {
-          name: "B.L.S. Response",
-          price: "$200 first hour",
-          detail: "Actual Ambu-Bar; $100 each additional hour",
-        },
+      guestCount: "12-person minimum and 30-person maximum",
+      setup: "Satellite Bar and optional Triage Tent only",
+      fees: [
+        { label: "First hour", value: "$100" },
+        { label: "Each additional hour", value: "$100" },
+        { label: "Minimum booking", value: "Two hours" },
+        { label: "Supplies", value: "$65" },
+        { label: "Bartender", value: "$50 per hour" },
       ],
-      includes: ["Beer and wine service", "Supplies: $65", "Bartender: $50 / hour", "10% service charge"],
-      addOns: ["Mocktails & Dirty Soda: $50", "Up to 3 signature cocktails: $75"],
+      service: "Beer and wine service only",
+      bartenderRule: "At least one RAMP-certified bartender is required, with one required for every 50 guests",
+      addOn: "Dirty Soda & Mocktail add-on: $50",
+      gratuity: null,
     },
     {
-      abbreviation: "A.L.S.",
-      name: "Advanced Liquor Service",
-      summary: "Satellite Bar & Tent service for parties of 50 or more.",
+      abbreviation: "Package 2",
+      name: "B.L.S. — Basic Liquor Service",
+      summary: "For Events With 50 or More Guests",
       Icon: ShieldCheck,
-      options: [
-        {
-          name: "Satellite Bar & Tent",
-          price: "$100 / hour",
-          detail: "3-hour minimum",
-        },
+      guestCount: "50 or more",
+      setup: "Satellite Bar, Triage Tent, and AmbuBar ambulance as needed",
+      fees: [
+        { label: "First hour", value: "$250" },
+        { label: "Each additional hour", value: "$125" },
+        { label: "Minimum booking", value: "Three hours" },
+        { label: "Supplies", value: "$100 per 50 guests" },
+        { label: "Bartender", value: "$50 per hour" },
       ],
-      includes: [
-        "Beer and wine service with up to 3-4 signature cocktails",
-        "Supplies: $100 per 50 guests",
-        "Bartender: $50 / hour",
-        "Tip jar allowed, or add 10% gratuity",
-        "10% service charge",
-      ],
-      addOns: ["Dirty Sodas & Mocktails: $75"],
+      service: "Beer and wine service only",
+      bartenderRule: "One RAMP-certified bartender is required for every 50 guests",
+      addOn: "Dirty Soda & Mocktail upgrade: $50 per 50 guests",
+      gratuity: "The client may allow a tip jar. If a tip jar is not allowed, add 10% gratuity.",
     },
     {
-      abbreviation: "M.C.I.",
-      name: "Mass Consumer Incident",
-      summary: "Ambu-Bar service for parties of 50 or more.",
+      abbreviation: "Package 3",
+      name: "A.L.S. — Advanced Liquor Service",
+      summary: "For Events With 50 or More Guests",
       Icon: Ambulance,
-      options: [
-        {
-          name: "Ambu-Bar Response",
-          price: "$250 first hour",
-          detail: "Satellite Bar & Tent and seating area; $125 each additional hour; 3-hour minimum",
-        },
+      guestCount: "50 or more",
+      setup: "AmbuBar ambulance, Triage Tent, and Satellite Bar as needed",
+      fees: [
+        { label: "First hour", value: "$250" },
+        { label: "Each additional hour", value: "$125" },
+        { label: "Minimum booking", value: "Three hours" },
+        { label: "Supplies", value: "$100 per 50 guests" },
+        { label: "Bartender", value: "$50 per hour" },
       ],
-      includes: [
-        "Beer and wine service with up to 3-4 signature cocktails",
-        "Supplies: $100 per 50 guests",
-        "Bartender: $50 / hour",
-        "Tip jar allowed, or add 10% gratuity",
-        "10% service charge",
-      ],
-      addOns: ["Dirty Sodas & Mocktails: $75"],
+      service: "Beer and wine service plus a selection of 3–4 signature cocktails",
+      bartenderRule: "One RAMP-certified bartender is required for every 50 guests",
+      addOn: "Dirty Soda & Mocktail upgrade: $50 per 50 guests",
+      gratuity: "The client may allow a tip jar. If a tip jar is not allowed, add 10% gratuity.",
     },
-  ];
+  ] as const;
 
-  const serviceDetails: Array<{
+  const packagePolicies: Array<{
     Icon: LucideIcon;
     label: string;
     detail: string;
-    notice?: {
-      heading: string;
-      detail: string;
-    };
   }> = [
+    {
+      Icon: UsersRound,
+      label: "RAMP-certified staffing",
+      detail: "Every package requires at least one RAMP-certified bartender for every 50 guests.",
+    },
     {
       Icon: CalendarCheck2,
       label: "Setup & cleanup",
-      detail: "Up to 1 hour of setup plus breakdown and cleanup are included with every package.",
+      detail: "Every package includes one hour of setup before the event and one hour of cleanup after the event.",
     },
     {
-      Icon: UsersRound,
-      label: "Bartending team",
-      detail: "RAMP Certified Bartenders, with 1 bartender required for every 50 guests.",
+      Icon: Wine,
+      label: "Preferred suppliers",
+      detail:
+        "AmbuBar has preferred suppliers for beer, wine, and spirits. Clients may use another supplier, but a 10% upcharge applies.",
     },
     {
       Icon: MapPin,
-      label: "Travel & permits",
+      label: "Travel",
       detail:
-        "B.L.S. includes 25 miles; A.L.S. and M.C.I. include 30 miles. Beyond the included distance, travel is $2 per mile one way.",
-      notice: {
-        heading: "Public venue permit fees",
-        detail:
-          "For bar service at a public venue, additional fees may apply for permits required for alcohol sales.",
-      },
+        "Thirty miles of travel are included. Additional mileage is $2 per mile beyond 30 miles, calculated one way only.",
+    },
+    {
+      Icon: CircleDollarSign,
+      label: "Service charge",
+      detail: "A 10% service charge applies to the package total.",
     },
   ];
 
@@ -512,8 +497,8 @@ export function PricingSection() {
       <SectionHeading
         headingId="pricing-heading"
         eyebrow="Pricing"
-        title="Choose the response level that fits your event."
-        description="Each package is organized around your guest count, service setup, and beverage options so you can quickly see what applies to your celebration."
+        title="Choose the package that fits your event."
+        description="Compare guest counts, setup choices, hourly rates, staffing, and beverage service. Fees are listed separately so you can see exactly what applies."
       />
       <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 xl:grid-cols-3">
         {plans.map((plan, index) => (
@@ -531,70 +516,105 @@ export function PricingSection() {
               </div>
               <div>
                 <p className="brand-subtitle">{plan.abbreviation}</p>
-                <h3 className="mt-2 text-xl font-semibold text-brand-black">{plan.name}</h3>
+                <h3 className="mt-2 text-xl font-semibold leading-7 text-brand-black">{plan.name}</h3>
               </div>
             </div>
-            <p className="mt-5 text-base leading-7 text-brand-text-muted">{plan.summary}</p>
+            <p className="mt-5 text-base font-semibold leading-7 text-brand-charcoal">{plan.summary}</p>
 
-            <dl className="mt-6 divide-y divide-brand-border border-y border-brand-border">
-              {plan.options.map((option) => (
-                <div key={option.name} className="py-4 first:pt-0 last:pb-0">
-                  <dt className="text-sm font-semibold text-brand-charcoal">{option.name}</dt>
-                  <dd className="mt-2 text-lg font-semibold text-brand-blue">{option.price}</dd>
-                  <p className="mt-1 text-sm leading-6 text-brand-text-muted">{option.detail}</p>
-                </div>
-              ))}
+            <dl className="mt-6 grid gap-4 rounded-lg border border-brand-border bg-brand-surface p-5">
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-blue">Guest count</dt>
+                <dd className="mt-1 text-sm leading-6 text-brand-charcoal">{plan.guestCount}</dd>
+              </div>
+              <div className="border-t border-brand-border pt-4">
+                <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-blue">Setup options</dt>
+                <dd className="mt-1 text-sm leading-6 text-brand-charcoal">{plan.setup}</dd>
+              </div>
             </dl>
 
             <div className="mt-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">
-                Included fees & service
-              </p>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-brand-text-muted">
-                {plan.includes.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <Beer aria-hidden="true" size={16} className="mt-1 shrink-0 text-brand-gold" />
-                    <span>{item}</span>
-                  </li>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">Rates & supplies</p>
+              <dl className="mt-4 divide-y divide-brand-border border-y border-brand-border">
+                {plan.fees.map((fee) => (
+                  <div key={fee.label} className="flex items-start justify-between gap-4 py-3">
+                    <dt className="text-sm leading-6 text-brand-text-muted">{fee.label}</dt>
+                    <dd className="text-right text-sm font-semibold leading-6 text-brand-charcoal">{fee.value}</dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
             </div>
 
             <div className="mt-6 border-t border-brand-border pt-5">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">Add-ons</p>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-brand-text-muted">
-                {plan.addOns.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <Coffee aria-hidden="true" size={16} className="mt-1 shrink-0 text-brand-gold" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">Beverage service</p>
+              <p className="mt-3 text-sm leading-6 text-brand-text-muted">{plan.service}</p>
             </div>
-            <Link href="/contact" className="brand-button mt-7 w-full">
-              Check availability
-            </Link>
+
+            <div className="mt-5 border-t border-brand-border pt-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">Staffing requirement</p>
+              <p className="mt-3 text-sm leading-6 text-brand-text-muted">{plan.bartenderRule}</p>
+            </div>
+
+            {plan.gratuity ? (
+              <div className="mt-5 rounded-lg border border-brand-gold/70 bg-brand-gold/10 p-4">
+                <p className="text-sm font-semibold text-brand-black">Gratuity option</p>
+                <p className="mt-1 text-sm leading-6 text-brand-charcoal">{plan.gratuity}</p>
+              </div>
+            ) : null}
+
+            <div className="mt-5 border-t border-brand-border pt-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">Optional upgrade</p>
+              <p className="mt-3 flex gap-2 text-sm leading-6 text-brand-text-muted">
+                <Coffee aria-hidden="true" size={16} className="mt-1 shrink-0 text-brand-gold" />
+                <span>{plan.addOn}</span>
+              </p>
+            </div>
+
+            <div className="mt-5 border-t border-brand-border pt-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-blue">Additional charges</p>
+              <dl className="mt-3 space-y-3 text-sm leading-6 text-brand-text-muted">
+                <div>
+                  <dt className="font-semibold text-brand-charcoal">Service charge</dt>
+                  <dd>10% of the package total</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-brand-charcoal">Travel</dt>
+                  <dd>Thirty miles included; $2 per additional mile beyond 30 miles, calculated one way only</dd>
+                </div>
+              </dl>
+            </div>
+            <div className="mt-auto pt-7">
+              <Link href="/contact" className="brand-button w-full">
+                Check availability
+              </Link>
+            </div>
           </motion.article>
         ))}
       </div>
 
-      <div className="mt-6 grid gap-4 border-y border-brand-border py-6 sm:mt-8 sm:grid-cols-3 sm:gap-6">
-        {serviceDetails.map(({ Icon, label, detail, notice }) => (
-          <div key={label} className="flex items-start gap-3">
-            <Icon aria-hidden="true" size={20} className="mt-1 shrink-0 text-brand-blue" />
-            <div>
-              <h3 className="font-semibold text-brand-black">{label}</h3>
-              <p className="mt-1 text-sm leading-6 text-brand-text-muted">{detail}</p>
-              {notice ? (
-                <aside className="mt-4 rounded-md border border-brand-gold/60 bg-brand-gold/10 p-4">
-                  <h4 className="text-sm font-semibold text-brand-black">{notice.heading}</h4>
-                  <p className="mt-1 text-sm leading-6 text-brand-charcoal">{notice.detail}</p>
-                </aside>
-              ) : null}
-            </div>
-          </div>
-        ))}
-      </div>
+      <section aria-labelledby="package-information-heading" className="brand-card mt-8 overflow-hidden sm:mt-10">
+        <div className="border-b border-brand-border bg-brand-charcoal px-6 py-6 text-white sm:px-8">
+          <p className="brand-subtitle !text-brand-gold-soft">Please review</p>
+          <h3 id="package-information-heading" className="mt-2 text-2xl font-semibold">
+            Included With Every Package
+          </h3>
+        </div>
+        <div className="grid gap-px bg-brand-border md:grid-cols-2 xl:grid-cols-5">
+          {packagePolicies.map(({ Icon, label, detail }) => (
+            <article key={label} className="bg-white p-6">
+              <Icon aria-hidden="true" size={22} className="text-brand-blue" />
+              <h4 className="mt-4 font-semibold text-brand-black">{label}</h4>
+              <p className="mt-2 text-sm leading-6 text-brand-text-muted">{detail}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <aside className="mt-6 rounded-lg border border-brand-gold/70 bg-brand-gold/10 p-5 sm:p-6">
+        <h3 className="font-semibold text-brand-black">Public venue permit fees</h3>
+        <p className="mt-1 text-sm leading-6 text-brand-charcoal">
+          For bar service at a public venue, additional fees may apply for permits required for alcohol sales.
+        </p>
+      </aside>
 
       <motion.section
         aria-labelledby="booking-policy-heading"

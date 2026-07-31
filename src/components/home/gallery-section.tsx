@@ -31,7 +31,7 @@ const defaultItems: GalleryItem[] = [
   },
   {
     src: "/images/ambuarTen.jpg",
-    alt: "Ambu Bar branded event tent and service counter",
+    alt: "Ambu Bar branded Triage Tent and service counter",
     title: "Event-ready setup",
     description: "A branded setup designed to feel at home at markets, festivals, and private events.",
   },

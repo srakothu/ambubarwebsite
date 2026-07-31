@@ -231,7 +231,7 @@ export function ContactPage() {
             <article className="brand-card overflow-hidden">
               <Image
                 src="/images/ambuarTen.jpg"
-                alt="Ambu Bar's branded event tent and service counter setup"
+                alt="Ambu Bar's branded Triage Tent and service counter setup"
                 width={1080}
                 height={1080}
                 sizes="(max-width: 1024px) 100vw, 42vw"

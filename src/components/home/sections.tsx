@@ -322,11 +322,11 @@ export function DirtySodaSection() {
               Choose a featured recipe or ask about including the Dirty Soda & Mocktail upgrade with your package.
             </p>
 
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            <ul className="mt-6 flex flex-wrap justify-center gap-3">
                 {signatureSodas.map((item, index) => (
                   <li
                     key={item.name}
-                    className="relative flex gap-4 rounded-lg border border-brand-border bg-white p-5"
+                    className="relative flex w-full gap-4 rounded-lg border border-brand-border bg-white p-5 sm:w-[calc(50%_-_0.375rem)]"
                   >
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-surface text-xs font-bold tracking-[0.12em] text-brand-blue">
                       {String(index + 1).padStart(2, "0")}
@@ -598,9 +598,12 @@ export function PricingSection() {
             Included With Every Package
           </h3>
         </div>
-        <div className="grid gap-px bg-brand-border md:grid-cols-2 xl:grid-cols-5">
+        <div className="flex flex-wrap justify-center gap-3 bg-brand-surface p-3 sm:p-4">
           {packagePolicies.map(({ Icon, label, detail }) => (
-            <article key={label} className="bg-white p-6">
+            <article
+              key={label}
+              className="w-full rounded-md border border-brand-border bg-white p-6 sm:w-[calc(50%_-_0.375rem)] lg:w-[calc(33.333%_-_0.5rem)] xl:w-[calc(20%_-_0.6rem)]"
+            >
               <Icon aria-hidden="true" size={22} className="text-brand-blue" />
               <h4 className="mt-4 font-semibold text-brand-black">{label}</h4>
               <p className="mt-2 text-sm leading-6 text-brand-text-muted">{detail}</p>

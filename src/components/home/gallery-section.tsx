@@ -118,7 +118,7 @@ export function GallerySection({ items = defaultItems }: GallerySectionProps) {
             transition={{ duration: 0.35, delay: index * 0.05 }}
             onClick={(event) => openModal(item, event)}
             aria-label={`View ${item.title}`}
-            className={`brand-card brand-card--interactive block w-full overflow-hidden text-left ${index === 0 ? "sm:col-span-2 xl:col-span-1" : ""}`}
+            className="brand-card brand-card--interactive block w-full overflow-hidden text-left"
           >
             <div className="relative aspect-4/3 overflow-hidden">
               <Image

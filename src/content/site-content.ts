@@ -70,7 +70,7 @@ export const business = {
   phoneHref: "tel:+14849559368",
   location: "Reading, Pennsylvania",
   serviceArea: "Pennsylvania and nearby communities",
-  website: "https://www.ambubar.com",
+  website: "https://ambubar.vercel.app",
   tagline: "For all of your beverage emergencies, call on us, your Thirst Responders.",
 } as const;
 

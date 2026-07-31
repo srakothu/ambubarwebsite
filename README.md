@@ -20,16 +20,18 @@ Open `http://localhost:3000`.
 
 ```bash
 npm run lint
+npm run test
 npm run build
 npm run start
 ```
 
-`npm run build` performs the production TypeScript and route validation. `npm run start` serves the production build locally.
+`npm run test` covers inquiry validation and email formatting. `npm run build` performs the production TypeScript and route validation. `npm run start` serves the production build locally.
 
 ## Routes
 
 - `/` - Main marketing and booking overview
-- `/contact` - Inquiry form with client-side validation and an email-draft fallback
+- `/contact` - Inquiry form with client and server validation, direct email delivery, and an email-draft fallback
+- `/api/inquiries` - Rate-limited server endpoint for validated event inquiries
 - `/merchandise` - Intentional Online Store launch placeholder for future ecommerce
 - `/sitemap.xml` - Search engine sitemap
 - `/robots.txt` - Crawler policy
@@ -44,18 +46,20 @@ Images are stored in `public/images/`. Use `next/image` for site imagery and sup
 
 ## Booking Integration
 
-The contact form currently validates all inputs in the browser and opens a prefilled email draft addressed to Ambu Bar. Validation and mailto generation live in [src/lib/inquiry.ts](src/lib/inquiry.ts).
+The contact form submits JSON to `/api/inquiries`, where the same inquiry contract is validated again before the message is delivered through Resend. The endpoint includes a honeypot, same-origin checks, body and field limits, best-effort IP rate limiting, request timeouts, and idempotency keys to reduce spam and duplicate messages. If delivery is unavailable, the completed form remains on screen and provides a prefilled email fallback.
 
-To connect a CRM, form provider, or server action later:
+Copy `.env.example` to `.env.local` for local development and configure these server-only variables in Vercel for production:
 
-1. Keep the `InquiryValues` contract in `src/lib/inquiry.ts`.
-2. Replace the `window.location.assign(buildInquiryMailto(...))` call in [src/components/contact/contact-page.tsx](src/components/contact/contact-page.tsx) with the integration submission.
-3. Preserve the field-level validation and success/error messaging so the accessible form behavior remains intact.
+- `RESEND_API_KEY` — required Resend API key.
+- `INQUIRY_FROM_EMAIL` — optional sender override. Until a domain is verified, the default is `Ambu Bar Website <onboarding@resend.dev>`; ensure the Resend account belongs to the recipient address.
+- `INQUIRY_TO_EMAIL` — optional destination override; defaults to `AmbuBarLLC@gmail.com`.
+
+After purchasing the domain, verify a sending subdomain with Resend, replace `INQUIRY_FROM_EMAIL` with an address on that verified domain, and update `business.website` in `src/content/site-content.ts`.
 
 ## Deployment Checklist
 
-- Confirm `https://www.ambubar.com` is the canonical production domain, or update `business.website` in `src/content/site-content.ts`.
+- Update `business.website` in `src/content/site-content.ts` when the custom production domain is connected. Until then, the canonical URL is `https://ambubar.vercel.app`.
 - Verify email, phone, and social profile URLs before publishing.
+- Add `RESEND_API_KEY`, `INQUIRY_FROM_EMAIL`, and `INQUIRY_TO_EMAIL` to the Vercel project environment and test a real inquiry.
 - Add confirmed public appearances to `publicEvents`; do not publish tentative or private bookings.
-- Connect the inquiry form to the chosen lead-management service.
 - Test the production site at desktop and mobile widths after deployment.

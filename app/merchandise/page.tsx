@@ -7,7 +7,6 @@ import {
   onlineStore,
   onlineStoreDestination,
 } from "@/src/content/site-content";
-import { createPageMetadata } from "@/src/lib/page-metadata";
 
 const onlineStoreIsLive =
   onlineStore.onlineStoreIsLive && onlineStoreDestination.isExternal;
@@ -15,12 +14,19 @@ const onlineStoreDescription = onlineStoreIsLive
   ? "Shop official Ambu Bar apparel, drinkware, and Thirst Responders gear."
   : "The Ambu Bar Online Store is coming soon, with Thirst Responders apparel, drinkware, and more on the way.";
 
-export const metadata: Metadata = createPageMetadata({
+export const metadata: Metadata = {
   title: "Online Store",
   description: onlineStoreDescription,
-  path: "/merchandise",
-  socialTitle: "Ambu Bar Online Store",
-});
+  alternates: {
+    canonical: "/merchandise",
+  },
+  openGraph: {
+    title: "Ambu Bar Online Store",
+    description: onlineStoreDescription,
+    type: "website",
+    url: "/merchandise",
+  },
+};
 
 export default function MerchandisePage() {
   return (

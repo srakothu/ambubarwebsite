@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { MotionReveal } from "@/src/components/motion-reveal";
+import { motion } from "framer-motion";
 import {
   Ambulance,
   Beer,
@@ -38,7 +40,13 @@ function SectionHeading({
   const alignmentClasses = align === "center" ? "mx-auto text-center" : "text-left";
 
   return (
-    <MotionReveal className={`max-w-2xl ${alignmentClasses}`}>
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className={`max-w-2xl ${alignmentClasses}`}
+    >
       <p className="brand-subtitle">{eyebrow}</p>
       <h2 id={headingId} className="brand-heading mt-3 text-3xl font-semibold tracking-tight text-brand-black sm:text-4xl">
         {title}
@@ -47,7 +55,7 @@ function SectionHeading({
       {descriptionBelow ? (
         <p className="mt-3 text-base leading-7 text-brand-text-muted">{descriptionBelow}</p>
       ) : null}
-    </MotionReveal>
+    </motion.div>
   );
 }
 
@@ -77,11 +85,13 @@ export function OverviewSection() {
   ];
 
   return (
-    <MotionReveal
-      as="section"
+    <motion.section
       id="about"
       aria-labelledby="about-heading"
-      amount={0.15}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section"
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch lg:gap-8">
@@ -94,9 +104,11 @@ export function OverviewSection() {
           />
         </div>
 
-        <MotionReveal
-          as="aside"
-          delay={0.05}
+        <motion.aside
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
           className="brand-card relative flex min-h-72 flex-col justify-between overflow-hidden !border-brand-blue-dark !bg-brand-charcoal p-6 text-white sm:p-8 lg:p-10"
         >
           <div aria-hidden="true" className="absolute inset-x-0 top-0 grid h-1.5 grid-cols-3">
@@ -114,11 +126,14 @@ export function OverviewSection() {
               that feels polished, welcoming, and easy for hosts to manage.
             </p>
           </div>
-        </MotionReveal>
+        </motion.aside>
       </div>
 
-      <MotionReveal
-        amount={0.15}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         className="brand-card mt-8 overflow-hidden sm:mt-10"
       >
         <div className="border-b border-brand-border bg-brand-surface px-6 py-5 sm:px-8">
@@ -139,8 +154,8 @@ export function OverviewSection() {
             </article>
           ))}
         </div>
-      </MotionReveal>
-    </MotionReveal>
+      </motion.div>
+    </motion.section>
   );
 }
 
@@ -189,11 +204,13 @@ export function ProcessSection() {
   ];
 
   return (
-    <MotionReveal
-      as="section"
+    <motion.section
       id="services"
       aria-labelledby="services-heading"
-      amount={0.15}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
       <SectionHeading
@@ -205,10 +222,12 @@ export function ProcessSection() {
       />
       <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
         {services.map((service, index) => (
-          <MotionReveal
-            as="article"
+          <motion.article
             key={service.title}
-            delay={index * 0.04}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
             className="brand-card p-6 sm:p-8"
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
@@ -216,10 +235,10 @@ export function ProcessSection() {
             </div>
             <h3 className="mt-6 text-xl font-semibold text-brand-black">{service.title}</h3>
             <p className="mt-3 text-base leading-7 text-brand-text-muted">{service.description}</p>
-          </MotionReveal>
+          </motion.article>
         ))}
       </div>
-    </MotionReveal>
+    </motion.section>
   );
 }
 
@@ -248,11 +267,13 @@ export function DirtySodaSection() {
   ] as const;
 
   return (
-    <MotionReveal
-      as="section"
+    <motion.section
       id="dirty-soda"
       aria-labelledby="dirty-soda-heading"
-      amount={0.15}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
       <SectionHeading
@@ -262,8 +283,11 @@ export function DirtySodaSection() {
         description="Add a polished non-alcoholic beverage experience featuring premium sodas, flavored syrups, cream, fruit purees, and playful Ambu Bar recipes."
       />
 
-      <MotionReveal
-        as="article"
+      <motion.article
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
         className="brand-card mt-8 overflow-hidden sm:mt-10"
       >
         <div className="grid lg:grid-cols-[0.8fr_1.2fr]">
@@ -332,8 +356,8 @@ export function DirtySodaSection() {
             </Link>
           </div>
         </div>
-      </MotionReveal>
-    </MotionReveal>
+      </motion.article>
+    </motion.section>
   );
 }
 
@@ -461,11 +485,13 @@ export function PricingSection() {
   ];
 
   return (
-    <MotionReveal
-      as="section"
+    <motion.section
       id="pricing"
       aria-labelledby="pricing-heading"
-      amount={0.01}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.01 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
       <SectionHeading
@@ -476,10 +502,12 @@ export function PricingSection() {
       />
       <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 xl:grid-cols-3">
         {plans.map((plan, index) => (
-          <MotionReveal
-            as="article"
+          <motion.article
             key={plan.name}
-            delay={index * 0.05}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
             className="brand-card flex h-full flex-col p-6 sm:p-8"
           >
             <div className="flex items-start gap-4">
@@ -559,7 +587,7 @@ export function PricingSection() {
                 Check availability
               </Link>
             </div>
-          </MotionReveal>
+          </motion.article>
         ))}
       </div>
 
@@ -591,9 +619,12 @@ export function PricingSection() {
         </p>
       </aside>
 
-      <MotionReveal
-        as="section"
+      <motion.section
         aria-labelledby="booking-policy-heading"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         className="mt-10 sm:mt-12"
       >
         <SectionHeading
@@ -636,21 +667,27 @@ export function PricingSection() {
             </dl>
           </article>
         </div>
-      </MotionReveal>
-    </MotionReveal>
+      </motion.section>
+    </motion.section>
   );
 }
 
 export function ContactSection() {
   return (
-    <MotionReveal
-      as="section"
+    <motion.section
       id="contact"
       aria-labelledby="contact-heading"
-      amount={0.15}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
-      <MotionReveal
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         className="brand-card brand-card--soft p-6 sm:p-8 lg:p-10"
       >
         <SectionHeading
@@ -668,16 +705,19 @@ export function ContactSection() {
             <span className="font-semibold text-brand-charcoal">Popular questions:</span> Can you serve outdoors? Do you offer mocktails? Is setup included?
           </p>
         </div>
-        <MotionReveal
-          delay={0.05}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.35, delay: 0.05, ease: "easeOut" }}
           className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center"
         >
           <a href="mailto:AmbuBarLLC@gmail.com" className="brand-button w-full sm:w-auto">AmbuBarLLC@gmail.com</a>
           <a href="#home" className="brand-button brand-button--secondary w-full sm:w-auto">
             Back to top
           </a>
-        </MotionReveal>
-      </MotionReveal>
-    </MotionReveal>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 }

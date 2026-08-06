@@ -16,10 +16,10 @@ export default function NotFound() {
           <Siren aria-hidden="true" size={42} className="text-brand-blue" />
           <p className="brand-subtitle mt-6">404</p>
           <h1 className="brand-heading mt-3 text-4xl font-semibold text-brand-black sm:text-5xl">
-            Page Not Found
+            This page did not make the call sheet.
           </h1>
           <p className="mt-5 text-lg leading-8 text-brand-text-muted">
-            This address may have changed or may not exist. Head back to Ambu Bar, or contact us to plan your event.
+            The address may have changed, or it may not exist. Head back to Ambu Bar and we will get you where you need to go.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/" className="brand-button">

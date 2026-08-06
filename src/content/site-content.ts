@@ -1,3 +1,5 @@
+import { siteUrl } from "../lib/site-url";
+
 export interface NavigationItem {
   label: string;
   href: string;
@@ -70,7 +72,7 @@ export const business = {
   phoneHref: "tel:+14849559368",
   location: "Reading, Pennsylvania",
   serviceArea: "Pennsylvania and nearby communities",
-  website: "https://ambubar.vercel.app",
+  website: siteUrl,
   tagline: "For all of your beverage emergencies, call on us, your Thirst Responders.",
 } as const;
 

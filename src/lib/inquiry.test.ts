@@ -61,6 +61,14 @@ describe("inquiry validation", () => {
     expect(errors.message).toContain("3,000");
   });
 
+  it("rejects non-decimal guest counts and control characters", () => {
+    expect(validateInquiry({ ...validInquiry, guestCount: "1e2" }, "2099-01-01").guestCount).toBeTruthy();
+    expect(validateInquiry({ ...validInquiry, guestCount: "0x10" }, "2099-01-01").guestCount).toBeTruthy();
+    expect(validateInquiry({ ...validInquiry, phone: "call-me-4845550123" }, "2099-01-01").phone).toBeTruthy();
+    expect(validateInquiry({ ...validInquiry, name: "Taylor\nGuest" }, "2099-01-01").name).toBeTruthy();
+    expect(validateInquiry({ ...validInquiry, venue: "Reading\r\nPA" }, "2099-01-01").venue).toBeTruthy();
+  });
+
   it("parses only complete string payloads", () => {
     expect(parseInquiryValues(validInquiry)).toEqual(validInquiry);
     expect(parseInquiryValues({ ...validInquiry, guestCount: 75 })).toBeNull();

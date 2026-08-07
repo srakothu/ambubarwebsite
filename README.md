@@ -25,7 +25,7 @@ npm run build
 npm run start
 ```
 
-`npm run test` covers inquiry validation and email formatting. `npm run build` performs the production TypeScript and route validation. `npm run start` serves the production build locally.
+`npm run test` covers inquiry validation, email formatting, and inquiry-route safeguards. `npm run build` performs the production TypeScript and route validation. `npm run start` serves the production build locally.
 
 ## Routes
 
@@ -48,17 +48,18 @@ Images are stored in `public/images/`. Use `next/image` for site imagery and sup
 
 The contact form submits JSON to `/api/inquiries`, where the same inquiry contract is validated again before the message is delivered through Resend. The endpoint includes a honeypot, same-origin checks, body and field limits, best-effort IP rate limiting, request timeouts, and idempotency keys to reduce spam and duplicate messages. If delivery is unavailable, the completed form remains on screen and provides a prefilled email fallback.
 
-Copy `.env.example` to `.env.local` for local development and configure these server-only variables in Vercel for production:
+Copy `.env.example` to `.env.local` for local development and configure these deployment variables in Vercel for production:
 
+- `NEXT_PUBLIC_SITE_URL` — canonical public origin used by metadata, sitemap, robots, and structured data; defaults to the current Vercel deployment.
 - `RESEND_API_KEY` — required Resend API key.
 - `INQUIRY_FROM_EMAIL` — optional sender override. Until a domain is verified, the default is `Ambu Bar Website <onboarding@resend.dev>`; ensure the Resend account belongs to the recipient address.
 - `INQUIRY_TO_EMAIL` — optional destination override; defaults to `AmbuBarLLC@gmail.com`.
 
-After purchasing the domain, verify a sending subdomain with Resend, replace `INQUIRY_FROM_EMAIL` with an address on that verified domain, and update `business.website` in `src/content/site-content.ts`.
+After purchasing the domain, verify a sending subdomain with Resend, replace `INQUIRY_FROM_EMAIL` with an address on that verified domain, and set `NEXT_PUBLIC_SITE_URL` to the production origin.
 
 ## Deployment Checklist
 
-- Update `business.website` in `src/content/site-content.ts` when the custom production domain is connected. Until then, the canonical URL is `https://ambubar.vercel.app`.
+- Set `NEXT_PUBLIC_SITE_URL` when the custom production domain is connected. Until then, the canonical URL is `https://ambubar.vercel.app`.
 - Verify email, phone, and social profile URLs before publishing.
 - Add `RESEND_API_KEY`, `INQUIRY_FROM_EMAIL`, and `INQUIRY_TO_EMAIL` to the Vercel project environment and test a real inquiry.
 - Add confirmed public appearances to `publicEvents`; do not publish tentative or private bookings.

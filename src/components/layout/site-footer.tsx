@@ -9,6 +9,8 @@ import {
 } from "@/src/content/site-content";
 
 export function SiteFooter() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="border-t border-brand-border bg-brand-charcoal text-brand-white">
       <div className="mx-auto max-w-6xl px-6 py-12 lg:px-8">
@@ -132,15 +134,15 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; 2026 {business.legalName}. All rights reserved.</p>
-          <Link
-            href="/"
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-zinc-300 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {currentYear} {business.legalName}. All rights reserved.</p>
+          <a
+            href="#top"
             className="inline-flex items-center gap-2 font-medium text-brand-gold-soft transition-colors hover:text-brand-white"
           >
             Back to top
             <ArrowUp aria-hidden="true" size={16} strokeWidth={2.5} />
-          </Link>
+          </a>
         </div>
       </div>
     </footer>

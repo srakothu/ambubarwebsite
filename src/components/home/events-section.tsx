@@ -53,7 +53,7 @@ export function EventsSection({ events = publicEvents }: EventsSectionProps) {
               </p>
             </div>
           </div>
-          <Link href="/contact" className="brand-button shrink-0">
+          <Link href="/contact" className="brand-button w-full shrink-0 sm:w-auto">
             Bring Ambu Bar to Your Event
           </Link>
         </div>

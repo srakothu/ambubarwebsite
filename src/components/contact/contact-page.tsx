@@ -24,7 +24,7 @@ interface InquiryApiResponse {
 }
 
 const inputClassName =
-  "w-full rounded-md border border-brand-border bg-white px-4 py-3 text-brand-charcoal outline-none transition placeholder:text-brand-text-muted focus:border-brand-blue";
+  "w-full rounded-md border border-brand-text-muted bg-white px-4 py-3 text-brand-charcoal outline-none transition placeholder:text-brand-text-muted focus:border-brand-blue disabled:cursor-wait disabled:bg-brand-surface";
 
 export function ContactPage() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -39,6 +39,7 @@ export function ContactPage() {
     const fieldName = event.target.name as keyof InquiryValues;
     const { value } = event.target;
 
+    submissionIdRef.current = "";
     setValues((current) => ({ ...current, [fieldName]: value }));
     setStatus((current) => (current === "submitting" ? current : "idle"));
     setStatusMessage("");
@@ -69,7 +70,7 @@ export function ContactPage() {
     }
 
     const formData = new FormData(event.currentTarget);
-    const company = String(formData.get("company") ?? "");
+    const website = String(formData.get("website") ?? "");
 
     if (!submissionIdRef.current) {
       submissionIdRef.current =
@@ -88,7 +89,7 @@ export function ContactPage() {
       const response = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, company, submissionId: submissionIdRef.current }),
+        body: JSON.stringify({ ...values, website, submissionId: submissionIdRef.current }),
         cache: "no-store",
         signal: controller.signal,
       });
@@ -152,17 +153,19 @@ export function ContactPage() {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="brand-card relative p-8 sm:p-10"
+              className="brand-card relative p-6 sm:p-8 lg:p-10"
               aria-busy={status === "submitting"}
               noValidate
             >
               <div className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-                <label htmlFor="company">Company</label>
-                <input id="company" name="company" tabIndex={-1} autoComplete="off" />
+                <label htmlFor="website">Website</label>
+                <input id="website" name="website" tabIndex={-1} autoComplete="off" />
               </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <label htmlFor="name" className="space-y-2 text-sm font-medium text-brand-charcoal">
-                  <span>Name <span aria-hidden="true">*</span></span>
+              <fieldset disabled={status === "submitting"} className="grid min-w-0 gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-brand-charcoal">
+                    Name <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="name"
                     name="name"
@@ -177,10 +180,12 @@ export function ContactPage() {
                     required
                   />
                   {errors.name ? <p id="name-error" className="text-sm font-normal text-red-700">{errors.name}</p> : null}
-                </label>
+                </div>
 
-                <label htmlFor="email" className="space-y-2 text-sm font-medium text-brand-charcoal">
-                  <span>Email <span aria-hidden="true">*</span></span>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-brand-charcoal">
+                    Email <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="email"
                     type="email"
@@ -197,10 +202,12 @@ export function ContactPage() {
                     required
                   />
                   {errors.email ? <p id="email-error" className="text-sm font-normal text-red-700">{errors.email}</p> : null}
-                </label>
+                </div>
 
-                <label htmlFor="phone" className="space-y-2 text-sm font-medium text-brand-charcoal">
-                  <span>Phone <span aria-hidden="true">*</span></span>
+                <div className="space-y-2">
+                  <label htmlFor="phone" className="block text-sm font-medium text-brand-charcoal">
+                    Phone <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="phone"
                     type="tel"
@@ -217,10 +224,12 @@ export function ContactPage() {
                     required
                   />
                   {errors.phone ? <p id="phone-error" className="text-sm font-normal text-red-700">{errors.phone}</p> : null}
-                </label>
+                </div>
 
-                <label htmlFor="eventDate" className="space-y-2 text-sm font-medium text-brand-charcoal">
-                  <span>Event date <span aria-hidden="true">*</span></span>
+                <div className="space-y-2">
+                  <label htmlFor="eventDate" className="block text-sm font-medium text-brand-charcoal">
+                    Event date <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="eventDate"
                     type="date"
@@ -234,10 +243,12 @@ export function ContactPage() {
                     required
                   />
                   {errors.eventDate ? <p id="event-date-error" className="text-sm font-normal text-red-700">{errors.eventDate}</p> : null}
-                </label>
+                </div>
 
-                <label htmlFor="venue" className="space-y-2 text-sm font-medium text-brand-charcoal">
-                  <span>Venue or event area <span aria-hidden="true">*</span></span>
+                <div className="space-y-2">
+                  <label htmlFor="venue" className="block text-sm font-medium text-brand-charcoal">
+                    Venue or event area <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="venue"
                     name="venue"
@@ -252,10 +263,12 @@ export function ContactPage() {
                     required
                   />
                   {errors.venue ? <p id="venue-error" className="text-sm font-normal text-red-700">{errors.venue}</p> : null}
-                </label>
+                </div>
 
-                <label htmlFor="guestCount" className="space-y-2 text-sm font-medium text-brand-charcoal md:col-span-2">
-                  <span>Estimated guest count <span aria-hidden="true">*</span></span>
+                <div className="space-y-2 md:col-span-2">
+                  <label htmlFor="guestCount" className="block text-sm font-medium text-brand-charcoal">
+                    Estimated guest count <span aria-hidden="true">*</span>
+                  </label>
                   <input
                     id="guestCount"
                     type="number"
@@ -273,10 +286,12 @@ export function ContactPage() {
                     required
                   />
                   {errors.guestCount ? <p id="guest-count-error" className="text-sm font-normal text-red-700">{errors.guestCount}</p> : null}
-                </label>
+                </div>
 
-                <label htmlFor="message" className="space-y-2 text-sm font-medium text-brand-charcoal md:col-span-2">
-                  <span>Beverage needs <span aria-hidden="true">*</span></span>
+                <div className="space-y-2 md:col-span-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-brand-charcoal">
+                    Beverage needs <span aria-hidden="true">*</span>
+                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -291,12 +306,12 @@ export function ContactPage() {
                     required
                   />
                   {errors.message ? <p id="message-error" className="text-sm font-normal text-red-700">{errors.message}</p> : null}
-                </label>
-              </div>
+                </div>
+              </fieldset>
 
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <button
-                  className="brand-button disabled:cursor-not-allowed disabled:opacity-60"
+                  className="brand-button w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                   type="submit"
                   disabled={status === "submitting"}
                 >
@@ -308,7 +323,7 @@ export function ContactPage() {
                   </p>
                 ) : null}
                 {status === "submitting" ? (
-                  <p className="text-sm font-medium text-brand-blue" aria-live="polite">
+                  <p className="text-sm font-medium text-brand-blue" role="status">
                     {statusMessage}
                   </p>
                 ) : null}
@@ -339,8 +354,8 @@ export function ContactPage() {
                 alt="Ambu Bar's branded Triage Tent and service counter setup"
                 width={1080}
                 height={1080}
-                sizes="(max-width: 1024px) 100vw, 42vw"
-                className="aspect-video w-full object-cover object-center"
+                sizes="(max-width: 1023px) 100vw, 42vw"
+                className="aspect-4/3 w-full bg-white object-contain object-center"
               />
               <div className="p-6 sm:p-8">
                 <p className="brand-subtitle">Service area</p>

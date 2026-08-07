@@ -10,7 +10,7 @@ import {
   PatchExchangeSection,
   PartnersSection,
   PricingSection,
-  ProcessSection,
+  ServicesSection,
   TeamSection,
 } from "@/src/components/home";
 import { SiteShell } from "@/src/components/layout";
@@ -20,16 +20,16 @@ export default function Home() {
     <SiteShell>
       <HeroSection />
       <OverviewSection />
-      <TeamSection />
-      <ProcessSection />
+      <ServicesSection />
       <DirtySodaSection />
-      <GallerySection />
-      <OnlineStoreSection />
-      <EventsSection />
-      <PartnersSection />
-      <PatchExchangeSection />
       <ExperienceSection />
       <PricingSection />
+      <TeamSection />
+      <GallerySection />
+      <PartnersSection />
+      <PatchExchangeSection />
+      <EventsSection />
+      <OnlineStoreSection />
       <ContactSection />
     </SiteShell>
   );

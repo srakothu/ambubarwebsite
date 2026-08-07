@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface GalleryItem {
   src: string;
   alt: string;
   title: string;
   description: string;
+  presentation?: "cover" | "contain";
+  surface?: "dark" | "light";
 }
 
 interface GallerySectionProps {
@@ -22,6 +23,8 @@ const defaultItems: GalleryItem[] = [
     alt: "Illustrated Ambu Bar mobile bar concept with a blue ambulance and open service window",
     title: "The Thirst Responders",
     description: "The mobile bar concept that puts the ambulance at the center of the celebration.",
+    presentation: "contain",
+    surface: "dark",
   },
   {
     src: "/images/Ambu-Bar Concept.jpg",
@@ -40,18 +43,24 @@ const defaultItems: GalleryItem[] = [
     alt: "Blue Ambu Bar Thirst Responder T-shirt with the Dial Wine-1-1 design",
     title: "First-response gear",
     description: "A glimpse at the branded apparel planned for the Ambu Bar Online Store.",
+    presentation: "contain",
+    surface: "light",
   },
   {
     src: "/images/5533a687-7fe0-462c-97b5-c7ba4cae07bb.jpeg",
     alt: "Black and white Ambu Bar Thirst Responder logo mark",
     title: "The original mark",
     description: "The heartbeat, cocktail, and emergency-service details behind the brand.",
+    presentation: "contain",
+    surface: "light",
   },
   {
     src: "/images/Ambubar77.jpg",
     alt: "Ambu Bar mobile bar promotional artwork featuring the Thirst Responders ambulance concept",
     title: "Ready when you are",
     description: "Coffee, mocktails, cocktails, and good vibes for events that deserve more personality.",
+    presentation: "contain",
+    surface: "dark",
   },
 ];
 
@@ -108,53 +117,47 @@ export function GallerySection({ items = defaultItems }: GallerySectionProps) {
       </div>
 
       <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-        {items.map((item, index) => (
-          <motion.button
+        {items.map((item) => (
+          <button
             key={item.src}
             type="button"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.35, delay: index * 0.05 }}
             onClick={(event) => openModal(item, event)}
             aria-label={`View ${item.title}`}
-            className="brand-card brand-card--interactive block w-full overflow-hidden text-left"
+            className="brand-card brand-card--interactive group block w-full overflow-hidden text-left"
           >
-            <div className="relative aspect-4/3 overflow-hidden">
+            <span
+              className={`relative block aspect-4/3 overflow-hidden ${item.surface === "dark" ? "bg-brand-charcoal" : "bg-white"}`}
+            >
               <Image
                 src={item.src}
                 alt={item.alt}
                 fill
-                loading={item.src === "/images/Ambubar55logo.jpeg" ? "eager" : "lazy"}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 hover:scale-105"
+                className={
+                  item.presentation === "contain"
+                    ? "object-contain p-2 sm:p-3"
+                    : "object-cover transition-transform duration-500 group-hover:scale-105"
+                }
               />
-            </div>
-            <div className="p-4">
-              <p className="text-base font-semibold text-brand-black">{item.title}</p>
-              <p className="mt-1 text-sm leading-6 text-brand-text-muted">{item.description}</p>
-            </div>
-          </motion.button>
+            </span>
+            <span className="block p-4">
+              <span className="block text-base font-semibold text-brand-black">{item.title}</span>
+              <span className="mt-1 block text-sm leading-6 text-brand-text-muted">{item.description}</span>
+            </span>
+          </button>
         ))}
       </div>
 
-      <AnimatePresence>
-        {activeImage ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-60 flex items-center justify-center bg-[rgba(9,22,43,0.9)] px-4 py-6"
+      {activeImage ? (
+          <div
+            className="gallery-backdrop fixed inset-0 z-60 flex items-center justify-center overflow-y-auto bg-[rgba(9,22,43,0.9)] px-4 py-4 sm:py-6"
             onMouseDown={(event) => {
               if (event.target === event.currentTarget) {
                 closeModal();
               }
             }}
           >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
+            <div
               role="dialog"
               aria-modal="true"
               aria-labelledby="gallery-dialog-title"
@@ -165,18 +168,18 @@ export function GallerySection({ items = defaultItems }: GallerySectionProps) {
                   closeButtonRef.current?.focus();
                 }
               }}
-              className="relative w-full max-w-4xl overflow-hidden rounded-lg border border-white/15 bg-brand-charcoal"
+              className="gallery-dialog relative flex max-h-[calc(100dvh-2rem)] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-white/15 bg-brand-charcoal sm:max-h-[calc(100dvh-3rem)]"
             >
-              <div className="relative aspect-4/3">
+              <div className="relative min-h-0 flex-1 basis-[60dvh] bg-black/25">
                 <Image
                   src={activeImage.src}
                   alt={activeImage.alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 80vw"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
-              <div className="flex items-center justify-between gap-4 bg-[rgba(11,11,11,0.9)] px-6 py-4 text-white">
+              <div className="flex shrink-0 items-center justify-between gap-4 bg-[rgba(11,11,11,0.9)] px-4 py-4 text-white sm:px-6">
                 <div>
                   <h3 id="gallery-dialog-title" className="text-lg font-semibold text-white">{activeImage.title}</h3>
                   <p id="gallery-dialog-description" className="mt-1 text-sm text-zinc-300">{activeImage.description}</p>
@@ -191,10 +194,9 @@ export function GallerySection({ items = defaultItems }: GallerySectionProps) {
                   <X aria-hidden="true" size={20} />
                 </button>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         ) : null}
-      </AnimatePresence>
     </section>
   );
 }

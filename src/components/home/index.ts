@@ -12,5 +12,5 @@ export {
 	DirtySodaSection,
 	OverviewSection,
 	PricingSection,
-	ProcessSection,
+	ServicesSection,
 } from "./sections";

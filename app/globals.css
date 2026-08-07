@@ -39,6 +39,35 @@ body {
   transition: background-color 180ms ease, color 180ms ease;
 }
 
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gallery-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes gallery-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 :focus-visible {
   outline: 3px solid var(--brand-white);
   outline-offset: 0;
@@ -121,7 +150,7 @@ body {
       box-shadow: 0 24px 50px rgba(11, 11, 11, 0.1);
     }
 
-    .brand-button:hover {
+    .brand-button:not(:disabled):hover {
       transform: translateY(-1px);
       background: var(--brand-blue-dark);
       box-shadow: 0 18px 34px rgba(18, 47, 91, 0.16);
@@ -137,6 +166,7 @@ body {
     font-family: var(--font-display);
     line-height: 1.1;
     letter-spacing: 0;
+    text-wrap: balance;
   }
 
   .brand-subtitle {
@@ -157,6 +187,25 @@ body {
 
   .brand-surface-elevated {
     background: var(--surface-elevated);
+  }
+
+  .hero-reveal {
+    animation: hero-reveal 420ms ease-out both;
+  }
+
+  .hero-reveal--1 { animation-delay: 40ms; }
+  .hero-reveal--2 { animation-delay: 80ms; }
+  .hero-reveal--3 { animation-delay: 120ms; }
+  .hero-reveal--4 { animation-delay: 160ms; }
+  .hero-reveal--5 { animation-delay: 200ms; }
+  .hero-reveal--6 { animation-delay: 240ms; }
+
+  .gallery-backdrop {
+    animation: gallery-backdrop-in 180ms ease-out both;
+  }
+
+  .gallery-dialog {
+    animation: gallery-dialog-in 220ms ease-out both;
   }
 }
 

@@ -69,6 +69,7 @@ export function validateInquiry(values: InquiryValues, today: string): InquiryEr
   const errors: InquiryErrors = {};
   const phoneDigits = values.phone.replace(/\D/g, "");
   const guestCount = Number(values.guestCount);
+  const containsControlCharacters = (value: string) => /[\u0000-\u001f\u007f]/.test(value);
   const hasValidDateFormat = /^\d{4}-\d{2}-\d{2}$/.test(values.eventDate);
   const parsedEventDate = hasValidDateFormat ? Date.parse(`${values.eventDate}T00:00:00Z`) : Number.NaN;
   const hasValidCalendarDate =
@@ -78,6 +79,8 @@ export function validateInquiry(values: InquiryValues, today: string): InquiryEr
     errors.name = "Please enter your name.";
   } else if (values.name.length > inquiryFieldLimits.name) {
     errors.name = `Name must be ${inquiryFieldLimits.name} characters or fewer.`;
+  } else if (containsControlCharacters(values.name)) {
+    errors.name = "Name must be entered on one line.";
   }
 
   if (!values.email.trim()) {
@@ -90,6 +93,7 @@ export function validateInquiry(values: InquiryValues, today: string): InquiryEr
     errors.phone = "Please enter a phone number.";
   } else if (
     values.phone.length > inquiryFieldLimits.phone ||
+    !/^[0-9+().\- ]+$/.test(values.phone) ||
     phoneDigits.length < 10 ||
     phoneDigits.length > 15
   ) {
@@ -108,11 +112,14 @@ export function validateInquiry(values: InquiryValues, today: string): InquiryEr
     errors.venue = "Please tell us where the event will be held.";
   } else if (values.venue.length > inquiryFieldLimits.venue) {
     errors.venue = `Venue must be ${inquiryFieldLimits.venue} characters or fewer.`;
+  } else if (containsControlCharacters(values.venue)) {
+    errors.venue = "Venue must be entered on one line.";
   }
 
   if (!values.guestCount) {
     errors.guestCount = "Please estimate your guest count.";
   } else if (
+    !/^\d+$/.test(values.guestCount) ||
     !Number.isInteger(guestCount) ||
     guestCount < 1 ||
     guestCount > inquiryFieldLimits.guestCount

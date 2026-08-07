@@ -11,7 +11,7 @@ export function TeamSection() {
               src="/images/mary-ann-biancone-team.jpeg"
               alt="Mary Ann Biancone with the Ambu Bar founder in front of a fire engine"
               fill
-              sizes="(max-width: 1024px) 100vw, 38vw"
+              sizes="(max-width: 1023px) 100vw, 38vw"
               className="object-cover"
             />
           </div>

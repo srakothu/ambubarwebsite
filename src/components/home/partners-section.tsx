@@ -86,6 +86,7 @@ export function PartnersSection({ partners = featuredPartners }: PartnersSection
                 >
                   Visit {partner.name}
                   <ExternalLink aria-hidden="true" size={16} />
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
                 {partner.facebookUrl ? (
                   <a
@@ -95,6 +96,7 @@ export function PartnersSection({ partners = featuredPartners }: PartnersSection
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-3 text-sm font-semibold text-brand-blue underline decoration-brand-border underline-offset-4 transition-colors hover:text-brand-blue-dark focus-visible:outline-brand-blue"
                   >
                     Follow on Facebook
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ) : null}
               </div>

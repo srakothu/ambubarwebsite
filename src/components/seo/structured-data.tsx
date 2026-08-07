@@ -28,6 +28,7 @@ export function StructuredData() {
     ],
     sameAs: socialLinks.map((link) => link.href),
   };
+  const serializedData = JSON.stringify(data).replace(/</g, "\\u003c");
 
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializedData }} />;
 }

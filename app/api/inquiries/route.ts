@@ -7,6 +7,7 @@ export const runtime = "nodejs";
 const MAX_BODY_LENGTH = 16_000;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
+const MAX_RATE_LIMIT_ENTRIES = 5_000;
 const SUBMISSION_ID_PATTERN = /^[A-Za-z0-9_-]{16,128}$/;
 
 interface RateLimitEntry {
@@ -39,6 +40,24 @@ function applyRateLimit(request: NextRequest) {
   const clientKey = getClientKey(request);
   const current = rateLimitStore.get(clientKey);
 
+  if (!current && rateLimitStore.size >= MAX_RATE_LIMIT_ENTRIES) {
+    for (const [key, entry] of rateLimitStore) {
+      if (entry.resetAt <= now) {
+        rateLimitStore.delete(key);
+      }
+    }
+
+    while (rateLimitStore.size >= MAX_RATE_LIMIT_ENTRIES) {
+      const oldestKey = rateLimitStore.keys().next().value;
+
+      if (typeof oldestKey !== "string") {
+        break;
+      }
+
+      rateLimitStore.delete(oldestKey);
+    }
+  }
+
   if (!current || current.resetAt <= now) {
     const resetAt = now + RATE_LIMIT_WINDOW_MS;
     rateLimitStore.set(clientKey, { count: 1, resetAt });
@@ -53,6 +72,35 @@ function applyRateLimit(request: NextRequest) {
     remaining: Math.max(0, RATE_LIMIT_MAX_REQUESTS - current.count),
     resetAt: current.resetAt,
   };
+}
+
+async function readRequestBody(request: NextRequest) {
+  const reader = request.body?.getReader();
+
+  if (!reader) {
+    return "";
+  }
+
+  const decoder = new TextDecoder();
+  let totalBytes = 0;
+  let body = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+
+    if (done) {
+      return body + decoder.decode();
+    }
+
+    totalBytes += value.byteLength;
+
+    if (totalBytes > MAX_BODY_LENGTH) {
+      await reader.cancel().catch(() => undefined);
+      return null;
+    }
+
+    body += decoder.decode(value, { stream: true });
+  }
 }
 
 function hasAllowedOrigin(request: NextRequest) {
@@ -80,6 +128,12 @@ export async function POST(request: NextRequest) {
     return json({ ok: false, message: "Submit the inquiry as JSON." }, 415);
   }
 
+  const declaredBodyLength = Number(request.headers.get("content-length"));
+
+  if (Number.isFinite(declaredBodyLength) && declaredBodyLength > MAX_BODY_LENGTH) {
+    return json({ ok: false, message: "The inquiry is too large." }, 413);
+  }
+
   const rateLimit = applyRateLimit(request);
   const rateLimitHeaders = {
     "X-RateLimit-Limit": String(RATE_LIMIT_MAX_REQUESTS),
@@ -101,13 +155,15 @@ export async function POST(request: NextRequest) {
   let rawBody: string;
 
   try {
-    rawBody = await request.text();
+    const body = await readRequestBody(request);
+
+    if (body === null) {
+      return json({ ok: false, message: "The inquiry is too large." }, 413, rateLimitHeaders);
+    }
+
+    rawBody = body;
   } catch {
     return json({ ok: false, message: "The inquiry could not be read." }, 400, rateLimitHeaders);
-  }
-
-  if (rawBody.length > MAX_BODY_LENGTH) {
-    return json({ ok: false, message: "The inquiry is too large." }, 413, rateLimitHeaders);
   }
 
   let payload: unknown;
@@ -124,7 +180,7 @@ export async function POST(request: NextRequest) {
 
   const record = payload as Record<string, unknown>;
 
-  if (typeof record.company === "string" && record.company.trim()) {
+  if (typeof record.website === "string" && record.website.trim()) {
     return json({ ok: true }, 200, rateLimitHeaders);
   }
 
@@ -153,8 +209,8 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const deliveryId = await deliverInquiry(values, record.submissionId);
-    return json({ ok: true, deliveryId }, 200, rateLimitHeaders);
+    await deliverInquiry(values, record.submissionId);
+    return json({ ok: true }, 200, rateLimitHeaders);
   } catch (error) {
     if (error instanceof InquiryDeliveryError) {
       console.error("Inquiry delivery failed", { status: error.status, message: error.message });

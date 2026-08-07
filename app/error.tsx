@@ -15,7 +15,7 @@ export default function ErrorPage({ error, unstable_retry }: ErrorPageProps) {
 
   return (
     <div className="flex min-h-screen items-center bg-brand-surface px-6 text-brand-text-primary">
-      <main className="mx-auto max-w-2xl">
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-2xl">
         <p className="brand-subtitle">Temporary interruption</p>
         <h1 className="brand-heading mt-3 text-4xl font-semibold text-brand-black sm:text-5xl">
           We hit a small bump on the way to the bar.

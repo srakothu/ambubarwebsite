@@ -1,3 +1,5 @@
+import { siteUrl } from "../lib/site-url";
+
 export interface NavigationItem {
   label: string;
   href: string;
@@ -33,6 +35,115 @@ function getOnlineStoreDestination(config: OnlineStoreConfig) {
 }
 
 export const onlineStoreDestination = getOnlineStoreDestination(onlineStore);
+
+export type MerchandiseAvailability =
+  | "coming-soon"
+  | "available-at-events"
+  | "available-online";
+
+export interface MerchandiseItem {
+  id: string;
+  title: string;
+  description: string;
+  availability: {
+    status: MerchandiseAvailability;
+    label: string;
+  };
+  image: {
+    src: string;
+    alt: string;
+  } | null;
+  price: string | null;
+  onlineStoreUrl: string | null;
+}
+
+export const merchandiseItems: readonly MerchandiseItem[] = [
+  {
+    id: "ambu-bar-challenge-coins",
+    title: "Ambu Bar Challenge Coins",
+    description:
+      "Official Ambu Bar challenge coins will be available for purchase at select Ambu Bar events.",
+    availability: {
+      status: "coming-soon",
+      label: "Coming Soon",
+    },
+    image: null,
+    price: null,
+    onlineStoreUrl: null,
+  },
+];
+
+export interface DirtySodaFavorite {
+  name: string;
+  ingredients: string;
+}
+
+export const dirtySodaFavorites: readonly DirtySodaFavorite[] = [
+  {
+    name: "Code Blue Razz",
+    ingredients: "Blue raspberry syrup, vanilla syrup, lemon-lime soda, and cream.",
+  },
+  {
+    name: "Firehouse Float",
+    ingredients: "Vanilla syrup, root beer, and cream. Inspired by a classic root beer float.",
+  },
+  {
+    name: "Strawberry Stat",
+    ingredients: "Strawberry syrup, vanilla syrup, lemon-lime soda, and cream.",
+  },
+  {
+    name: "Health Elixer",
+    ingredients: "Strawberry syrup, banana syrup, banana puree, and lemon-lime soda.",
+  },
+  {
+    name: "IV Drip",
+    ingredients: "Coconut syrup, Dr Pepper, and cream.",
+  },
+];
+
+export const featuredDirtySoda = {
+  drink: dirtySodaFavorites[0],
+  image: {
+    src: "/images/dirty-soda/code-blue-razz.jpg",
+    alt: "Blue Code Blue Razz dirty soda topped with cream",
+  },
+} as const;
+
+export interface MocktailSample {
+  name: string;
+  ingredients: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+}
+
+export const mocktailSamples: readonly MocktailSample[] = [
+  {
+    name: "Plasma Infusion",
+    ingredients: "Blue curaçao syrup, coconut syrup, pineapple juice, and club soda.",
+    image: {
+      src: "/images/dirty-soda/plasma-infusion.jpg",
+      alt: "Green Plasma Infusion mocktail with orange garnish",
+    },
+  },
+  {
+    name: "Medical No-jito",
+    ingredients: "Fresh mint, mojito mix with lime juice, and club soda.",
+    image: {
+      src: "/images/dirty-soda/medical-no-jito.jpg",
+      alt: "Medical No-jito mocktail with fresh mint and lime",
+    },
+  },
+  {
+    name: "Trauma Tonic",
+    ingredients: "Blueberry syrup, lemon juice, and Sprite.",
+    image: {
+      src: "/images/dirty-soda/trauma-tonic.jpg",
+      alt: "Trauma Tonic mocktail with blueberry syrup and lemon",
+    },
+  },
+];
 
 export const footerQuickLinks: readonly NavigationItem[] = [
   { label: "About", href: "/#about", isSectionLink: true },
@@ -70,7 +181,7 @@ export const business = {
   phoneHref: "tel:+14849559368",
   location: "Reading, Pennsylvania",
   serviceArea: "Pennsylvania and nearby communities",
-  website: "https://ambubar.vercel.app",
+  website: siteUrl,
   tagline: "For all of your beverage emergencies, call on us, your Thirst Responders.",
 } as const;
 
@@ -97,21 +208,16 @@ export const navigationGroups: readonly NavigationGroup[] = [
       { label: "Gallery", href: "/#gallery", isSectionLink: true },
       { label: "Events", href: "/#events", isSectionLink: true },
       {
+        label: "Preferred Partners",
+        href: "/#partners",
+        isSectionLink: true,
+      },
+      {
         label: "Patch Exchange",
         href: "/#patch-exchange",
         isSectionLink: true,
       },
       { label: "Ambu Bar Difference", href: "/#experience", isSectionLink: true },
-    ],
-  },
-  {
-    label: "Preferred Partners",
-    items: [
-      {
-        label: "Preferred Partners",
-        href: "/#partners",
-        isSectionLink: true,
-      },
     ],
   },
 ];

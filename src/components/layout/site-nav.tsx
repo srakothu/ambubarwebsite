@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown, ExternalLink, Mail, Menu, Phone, X } from "lucide-react";
 import {
   business,
@@ -16,10 +17,11 @@ import {
 interface NavigationLinkProps {
   item: NavigationItem;
   className: string;
+  currentPath: string;
   onNavigate?: () => void;
 }
 
-function NavigationLink({ item, className, onNavigate }: NavigationLinkProps) {
+function NavigationLink({ item, className, currentPath, onNavigate }: NavigationLinkProps) {
   if (item.isExternal) {
     return (
       <a
@@ -44,13 +46,19 @@ function NavigationLink({ item, className, onNavigate }: NavigationLinkProps) {
   }
 
   return (
-    <Link href={item.href} className={className} onClick={onNavigate}>
+    <Link
+      href={item.href}
+      className={className}
+      onClick={onNavigate}
+      aria-current={currentPath === item.href ? "page" : undefined}
+    >
       {item.label}
     </Link>
   );
 }
 
 export function SiteNav() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDesktopGroup, setOpenDesktopGroup] = useState<string | null>(null);
@@ -116,12 +124,14 @@ export function SiteNav() {
     : "border-white/70 text-white";
 
   const desktopMenuButtonClasses = isScrolled
-    ? "text-brand-charcoal hover:text-brand-gold"
+    ? "text-brand-charcoal hover:text-brand-blue"
     : "text-white/95 hover:text-brand-gold-soft";
 
   const storeLinkClasses = isScrolled
     ? "border-brand-blue/35 bg-brand-blue/8 text-brand-blue hover:border-brand-blue hover:bg-brand-blue hover:text-white"
     : "border-brand-gold-soft/65 bg-white/10 text-brand-gold-soft hover:bg-brand-gold-soft hover:text-brand-blue-dark";
+
+  const logoFrameClasses = isScrolled ? "border-brand-border" : "border-white/60";
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -176,9 +186,10 @@ export function SiteNav() {
           href="/#home"
           className="flex min-w-0 items-center gap-3"
           aria-label="Ambu Bar home"
+          aria-current={pathname === "/" ? "page" : undefined}
           onClick={closeMobileMenu}
         >
-          <span className="flex h-12 w-18 shrink-0 items-center justify-center overflow-hidden rounded-md border border-white/60 bg-white p-1 shadow-sm">
+          <span className={`flex h-12 w-18 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white p-1 shadow-sm ${logoFrameClasses}`}>
             <Image
               src="/images/5533a687-7fe0-462c-97b5-c7ba4cae07bb.jpeg"
               alt=""
@@ -200,7 +211,15 @@ export function SiteNav() {
             const menuId = `desktop-${group.label.toLowerCase().replaceAll(" ", "-")}`;
 
             return (
-              <div key={group.label} className="relative">
+              <div
+                key={group.label}
+                className="relative"
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setOpenDesktopGroup(null);
+                  }
+                }}
+              >
                 <button
                   ref={(element) => {
                     desktopGroupButtonRefs.current[group.label] = element;
@@ -210,6 +229,19 @@ export function SiteNav() {
                   aria-controls={menuId}
                   className={`inline-flex min-h-11 items-center gap-1.5 px-1 transition-colors duration-200 ${desktopMenuButtonClasses}`}
                   onClick={() => setOpenDesktopGroup(isOpen ? null : group.label)}
+                  onKeyDown={(event) => {
+                    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") {
+                      return;
+                    }
+
+                    event.preventDefault();
+                    setOpenDesktopGroup(group.label);
+                    requestAnimationFrame(() => {
+                      const links = document.getElementById(menuId)?.querySelectorAll<HTMLAnchorElement>("a");
+                      const target = event.key === "ArrowUp" ? links?.item(links.length - 1) : links?.item(0);
+                      target?.focus();
+                    });
+                  }}
                 >
                   {group.label}
                   <ChevronDown
@@ -227,7 +259,8 @@ export function SiteNav() {
                       <NavigationLink
                         key={item.label}
                         item={item}
-                        className="block rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-brand-surface hover:text-brand-blue focus:bg-brand-surface focus:text-brand-blue"
+                        currentPath={pathname}
+                        className="block rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-brand-surface hover:text-brand-blue focus:bg-brand-surface focus:text-brand-blue aria-[current=page]:bg-brand-surface aria-[current=page]:text-brand-blue"
                         onNavigate={() => setOpenDesktopGroup(null)}
                       />
                     ))}
@@ -240,10 +273,17 @@ export function SiteNav() {
             <NavigationLink
               key={item.label}
               item={item}
+              currentPath={pathname}
               className={`inline-flex min-h-11 items-center rounded-md border px-3 text-xs font-bold uppercase tracking-[0.12em] transition-colors duration-200 ${storeLinkClasses}`}
+              onNavigate={() => setOpenDesktopGroup(null)}
             />
           ))}
-          <NavigationLink item={navigationCta} className="brand-button px-4 py-2 text-xs" />
+          <NavigationLink
+            item={navigationCta}
+            currentPath={pathname}
+            className="brand-button px-4 py-2 text-xs"
+            onNavigate={() => setOpenDesktopGroup(null)}
+          />
         </nav>
 
         <button
@@ -266,13 +306,14 @@ export function SiteNav() {
       </div>
 
       {isMobileMenuOpen ? (
-        <div id="mobile-navigation" className="border-t border-white/20 bg-brand-charcoal/95 px-6 py-5 xl:hidden">
+        <div id="mobile-navigation" className="max-h-[calc(100dvh-7.5rem)] overflow-y-auto overscroll-contain border-t border-white/20 bg-brand-charcoal/95 px-6 py-5 xl:hidden">
           <nav aria-label="Mobile" className="mx-auto flex max-w-6xl flex-col text-sm font-medium text-white">
             <div className="grid grid-cols-2 gap-3 border-b border-white/15 pb-5">
-              <NavigationLink item={navigationCta} className="brand-button px-3 py-3 text-xs" onNavigate={closeMobileMenu} />
+              <NavigationLink item={navigationCta} currentPath={pathname} className="brand-button px-3 py-3 text-xs" onNavigate={closeMobileMenu} />
               <a
                 href={business.phoneHref}
                 className="brand-button brand-button--secondary gap-2 px-3 py-3 text-xs"
+                onClick={closeMobileMenu}
               >
                 <Phone aria-hidden="true" size={16} />
                 Call
@@ -306,7 +347,8 @@ export function SiteNav() {
                           <NavigationLink
                             key={item.label}
                             item={item}
-                            className="rounded-md px-3 py-2.5 text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                            currentPath={pathname}
+                            className="rounded-md px-3 py-2.5 text-white/85 transition-colors hover:bg-white/10 hover:text-white aria-[current=page]:bg-white/10 aria-[current=page]:text-white"
                             onNavigate={closeMobileMenu}
                           />
                         ))}
@@ -322,6 +364,7 @@ export function SiteNav() {
                 <NavigationLink
                   key={item.label}
                   item={item}
+                  currentPath={pathname}
                   className="block rounded-md border border-brand-gold-soft/50 bg-white/5 px-3 py-3 text-center text-sm font-bold uppercase tracking-[0.12em] text-brand-gold-soft transition-colors hover:bg-white/10 hover:text-white"
                   onNavigate={closeMobileMenu}
                 />

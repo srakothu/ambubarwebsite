@@ -59,11 +59,6 @@ export async function deliverInquiry(values: InquiryValues, submissionId: string
   }
 
   if (!response.ok) {
-    const providerMessage = await response.text().catch(() => "");
-    console.error("Inquiry email provider rejected a submission", {
-      status: response.status,
-      providerMessage: providerMessage.slice(0, 500),
-    });
     throw new InquiryDeliveryError("Email delivery was rejected.", response.status);
   }
 

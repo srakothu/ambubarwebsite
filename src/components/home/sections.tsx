@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   Ambulance,
   Beer,
@@ -19,6 +16,12 @@ import {
   Wine,
   type LucideIcon,
 } from "lucide-react";
+import {
+  business,
+  dirtySodaFavorites,
+  featuredDirtySoda,
+  mocktailSamples,
+} from "@/src/content/site-content";
 
 interface SectionHeadingProps {
   headingId?: string;
@@ -27,6 +30,7 @@ interface SectionHeadingProps {
   description: string;
   descriptionBelow?: string;
   align?: "left" | "center";
+  headingLevel?: "h2" | "h3";
 }
 
 function SectionHeading({
@@ -36,26 +40,22 @@ function SectionHeading({
   description,
   descriptionBelow,
   align = "left",
+  headingLevel = "h2",
 }: SectionHeadingProps) {
   const alignmentClasses = align === "center" ? "mx-auto text-center" : "text-left";
+  const Heading = headingLevel;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className={`max-w-2xl ${alignmentClasses}`}
-    >
+    <div className={`max-w-2xl ${alignmentClasses}`}>
       <p className="brand-subtitle">{eyebrow}</p>
-      <h2 id={headingId} className="brand-heading mt-3 text-3xl font-semibold tracking-tight text-brand-black sm:text-4xl">
+      <Heading id={headingId} className="brand-heading mt-3 text-3xl font-semibold tracking-tight text-brand-black sm:text-4xl">
         {title}
-      </h2>
+      </Heading>
       <p className="mt-4 text-base leading-7 text-brand-text-muted sm:text-lg sm:leading-8">{description}</p>
       {descriptionBelow ? (
         <p className="mt-3 text-base leading-7 text-brand-text-muted">{descriptionBelow}</p>
       ) : null}
-    </motion.div>
+    </div>
   );
 }
 
@@ -85,13 +85,9 @@ export function OverviewSection() {
   ];
 
   return (
-    <motion.section
+    <section
       id="about"
       aria-labelledby="about-heading"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section"
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch lg:gap-8">
@@ -104,11 +100,7 @@ export function OverviewSection() {
           />
         </div>
 
-        <motion.aside
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
+        <aside
           className="brand-card relative flex min-h-72 flex-col justify-between overflow-hidden !border-brand-blue-dark !bg-brand-charcoal p-6 text-white sm:p-8 lg:p-10"
         >
           <div aria-hidden="true" className="absolute inset-x-0 top-0 grid h-1.5 grid-cols-3">
@@ -126,16 +118,10 @@ export function OverviewSection() {
               that feels polished, welcoming, and easy for hosts to manage.
             </p>
           </div>
-        </motion.aside>
+        </aside>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className="brand-card mt-8 overflow-hidden sm:mt-10"
-      >
+      <div className="brand-card mt-8 overflow-hidden sm:mt-10">
         <div className="border-b border-brand-border bg-brand-surface px-6 py-5 sm:px-8">
           <p className="brand-subtitle !text-brand-blue">Why choose Ambu Bar</p>
           <h3 className="mt-2 text-xl font-semibold text-brand-black sm:text-2xl">
@@ -154,12 +140,12 @@ export function OverviewSection() {
             </article>
           ))}
         </div>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 }
 
-export function ProcessSection() {
+export function ServicesSection() {
   const services: Array<{
     icon: LucideIcon;
     title: string;
@@ -204,13 +190,9 @@ export function ProcessSection() {
   ];
 
   return (
-    <motion.section
+    <section
       id="services"
       aria-labelledby="services-heading"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
       <SectionHeading
@@ -218,84 +200,49 @@ export function ProcessSection() {
         eyebrow="Services"
         title="Service options for every kind of event."
         description="From beer-and-wine service to full mobile bartending, our Emergency Mixology Technicians (E.M.T.s) help you create a beverage setup that fits your guest list, venue, and vibe."
-        descriptionBelow="Our Emergency Mixology Technicians (E.M.T.s) are professionally trained bartenders dedicated to delivering exceptional hospitality and memorable beverage experiences."
+        descriptionBelow="Our E.M.T.s are professionally trained bartenders dedicated to delivering exceptional hospitality and memorable beverage experiences."
       />
-      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {services.map((service, index) => (
-          <motion.article
+      <div className="brand-card mt-8 grid gap-px overflow-hidden bg-brand-border p-px sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
+        {services.map((service) => (
+          <article
             key={service.title}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
-            className="brand-card p-6 sm:p-8"
+            className="bg-white p-6 sm:p-8"
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
               <service.icon aria-hidden="true" size={28} strokeWidth={1.8} />
             </div>
             <h3 className="mt-6 text-xl font-semibold text-brand-black">{service.title}</h3>
             <p className="mt-3 text-base leading-7 text-brand-text-muted">{service.description}</p>
-          </motion.article>
+          </article>
         ))}
       </div>
-    </motion.section>
+    </section>
   );
 }
 
 export function DirtySodaSection() {
-  const signatureSodas = [
-    {
-      name: "Code Blue Razz",
-      profile: "Blue raspberry syrup, vanilla syrup, lemon-lime soda, and cream.",
-    },
-    {
-      name: "Smoke Condition",
-      profile: "Vanilla syrup, root beer, and cream. Inspired by a classic root beer float.",
-    },
-    {
-      name: "Pink Lady",
-      profile: "Strawberry syrup, vanilla syrup, lemon-lime soda, and cream.",
-    },
-    {
-      name: "Health Elixer",
-      profile: "Strawberry syrup, banana syrup, banana puree, and lemon-lime soda.",
-    },
-    {
-      name: "IV Drip",
-      profile: "Coconut syrup, Dr Pepper, and cream.",
-    },
-  ] as const;
+  const [featuredMocktail, ...supportingMocktails] = mocktailSamples;
 
   return (
-    <motion.section
+    <section
       id="dirty-soda"
       aria-labelledby="dirty-soda-heading"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
       <SectionHeading
         headingId="dirty-soda-heading"
-        eyebrow="Dirty Soda & Mocktail Upgrades"
+        eyebrow="Dirty Soda & Mocktail Bar"
         title="Signature recipes with emergency-room flair."
-        description="Add a polished non-alcoholic beverage experience featuring premium sodas, flavored syrups, cream, fruit purees, and playful Ambu Bar recipes."
+        description="Explore Dirty Soda favorites and a few sample mocktails, all served with the playful details and polished presentation that make Ambu Bar memorable."
       />
 
-      <motion.article
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
-        className="brand-card mt-8 overflow-hidden sm:mt-10"
-      >
+      <article className="brand-card mt-8 overflow-hidden sm:mt-10">
         <div className="grid lg:grid-cols-[0.8fr_1.2fr]">
           <figure className="border-b border-brand-border bg-brand-charcoal p-4 sm:p-6 lg:border-b-0 lg:border-r lg:p-8">
             <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-brand-surface">
               <Image
-                src="/images/dirty-soda/code-blue-razz.jpg"
-                alt="Blue Code Blue Razz dirty soda topped with cream"
+                src={featuredDirtySoda.image.src}
+                alt={featuredDirtySoda.image.alt}
                 fill
                 sizes="(max-width: 1023px) calc(100vw - 5rem), 28rem"
                 className="object-cover"
@@ -306,7 +253,7 @@ export function DirtySodaSection() {
                 <GlassWater aria-hidden="true" size={21} strokeWidth={1.8} />
               </span>
               <div>
-                <p className="font-semibold">Code Blue Razz</p>
+                <p className="font-semibold">{featuredDirtySoda.drink.name}</p>
                 <p className="mt-0.5 text-sm text-white/75">A bright, creamy signature Dirty Soda.</p>
               </div>
             </figcaption>
@@ -317,26 +264,26 @@ export function DirtySodaSection() {
             <div className="pointer-events-none absolute -left-12 bottom-0 h-36 w-36 rounded-full bg-brand-gold/15 blur-2xl" />
 
             <p className="brand-subtitle !text-brand-blue">Signature menu</p>
-            <h3 className="mt-4 text-2xl font-semibold text-brand-black sm:text-3xl">Dirty Soda Creations</h3>
+            <h3 className="mt-4 text-2xl font-semibold text-brand-black sm:text-3xl">Dirty Soda Favorites</h3>
             <p className="mt-3 max-w-2xl text-base leading-7 text-brand-charcoal">
               Choose a featured recipe or ask about including the Dirty Soda & Mocktail upgrade with your package.
             </p>
 
             <ul className="mt-6 flex flex-wrap justify-center gap-3">
-                {signatureSodas.map((item, index) => (
-                  <li
-                    key={item.name}
-                    className="relative flex w-full gap-4 rounded-lg border border-brand-border bg-white p-5 sm:w-[calc(50%_-_0.375rem)]"
-                  >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-surface text-xs font-bold tracking-[0.12em] text-brand-blue">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <p className="text-base font-semibold text-brand-black">{item.name}</p>
-                      <p className="mt-1 text-sm leading-6 text-brand-charcoal">{item.profile}</p>
-                    </div>
-                  </li>
-                ))}
+              {dirtySodaFavorites.map((item, index) => (
+                <li
+                  key={item.name}
+                  className="relative flex w-full gap-4 rounded-lg border border-brand-border bg-white p-5 sm:w-[calc(50%_-_0.375rem)]"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-surface text-xs font-bold tracking-[0.12em] text-brand-blue">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <p className="text-base font-semibold text-brand-black">{item.name}</p>
+                    <p className="mt-1 text-sm leading-6 text-brand-charcoal">{item.ingredients}</p>
+                  </div>
+                </li>
+              ))}
             </ul>
 
             <div className="mt-6 flex flex-col gap-4 rounded-lg bg-brand-charcoal p-5 text-white sm:flex-row sm:items-center sm:p-6">
@@ -356,8 +303,68 @@ export function DirtySodaSection() {
             </Link>
           </div>
         </div>
-      </motion.article>
-    </motion.section>
+      </article>
+
+      <article className="brand-card mt-6 overflow-hidden sm:mt-8">
+        <div className="border-b border-brand-border bg-brand-surface px-6 py-6 sm:px-8 lg:px-10">
+          <p className="brand-subtitle !text-brand-blue">Alcohol-free inspiration</p>
+          <h3 className="mt-3 text-2xl font-semibold text-brand-black sm:text-3xl">Mocktail Samples</h3>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-brand-charcoal">
+            A few examples of the alcohol-free drinks our E.M.T.s can create. Custom mocktail
+            options may be tailored to your event.
+          </p>
+        </div>
+
+        <div className="grid gap-4 p-4 sm:p-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6 lg:p-8">
+          <figure className="overflow-hidden rounded-lg bg-brand-charcoal text-white sm:mx-auto sm:w-full sm:max-w-xl lg:mx-0 lg:max-w-none">
+            <div className="relative aspect-[3/4] overflow-hidden bg-brand-charcoal">
+              <Image
+                src={featuredMocktail.image.src}
+                alt={featuredMocktail.image.alt}
+                fill
+                sizes="(max-width: 767px) calc(100vw - 5rem), (max-width: 1023px) calc(100vw - 7rem), 34rem"
+                className="object-cover object-center"
+              />
+            </div>
+            <figcaption className="border-t border-white/15 p-5 sm:p-6">
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-brand-gold-soft">
+                  <GlassWater aria-hidden="true" size={21} strokeWidth={1.8} />
+                </span>
+                <div>
+                  <p className="text-xl font-semibold">{featuredMocktail.name}</p>
+                  <p className="mt-2 text-sm leading-6 text-white/80">{featuredMocktail.ingredients}</p>
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 lg:gap-6">
+            {supportingMocktails.map((mocktail) => (
+              <figure
+                key={mocktail.name}
+                className="grid overflow-hidden rounded-lg border border-brand-border bg-white lg:grid-cols-[0.82fr_1.18fr]"
+              >
+                <div className="relative aspect-[2/3] overflow-hidden bg-brand-charcoal lg:aspect-auto lg:min-h-72">
+                  <Image
+                    src={mocktail.image.src}
+                    alt={mocktail.image.alt}
+                    fill
+                    sizes="(max-width: 767px) calc(100vw - 5rem), (max-width: 1023px) calc(50vw - 4rem), 15rem"
+                    className="object-cover object-center"
+                  />
+                </div>
+                <figcaption className="flex flex-col justify-center p-5 sm:p-6">
+                  <p className="brand-subtitle !text-brand-blue">Sample mocktail</p>
+                  <p className="mt-2 text-xl font-semibold text-brand-black">{mocktail.name}</p>
+                  <p className="mt-2 text-sm leading-6 text-brand-charcoal">{mocktail.ingredients}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </article>
+    </section>
   );
 }
 
@@ -485,13 +492,9 @@ export function PricingSection() {
   ];
 
   return (
-    <motion.section
+    <section
       id="pricing"
       aria-labelledby="pricing-heading"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.01 }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
       <SectionHeading
@@ -500,14 +503,10 @@ export function PricingSection() {
         title="Choose the package that fits your event."
         description="Compare guest counts, setup choices, hourly rates, staffing, and beverage service. Fees are listed separately so you can see exactly what applies."
       />
-      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 xl:grid-cols-3">
-        {plans.map((plan, index) => (
-          <motion.article
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:gap-6 lg:grid-cols-3 lg:gap-4 xl:gap-6">
+        {plans.map((plan) => (
+          <article
             key={plan.name}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
             className="brand-card flex h-full flex-col p-6 sm:p-8"
           >
             <div className="flex items-start gap-4">
@@ -587,7 +586,7 @@ export function PricingSection() {
                 Check availability
               </Link>
             </div>
-          </motion.article>
+          </article>
         ))}
       </div>
 
@@ -619,16 +618,13 @@ export function PricingSection() {
         </p>
       </aside>
 
-      <motion.section
+      <section
         aria-labelledby="booking-policy-heading"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
         className="mt-10 sm:mt-12"
       >
         <SectionHeading
           headingId="booking-policy-heading"
+          headingLevel="h3"
           eyebrow="Plan with confidence"
           title="Booking & Cancellation Policy"
           description="Review payment timing and cancellation terms before reserving your event date."
@@ -638,7 +634,7 @@ export function PricingSection() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
               <ReceiptText aria-hidden="true" size={24} strokeWidth={1.8} />
             </div>
-            <h3 className="mt-5 text-xl font-semibold text-brand-black">Booking schedule</h3>
+            <h4 className="mt-5 text-xl font-semibold text-brand-black">Booking schedule</h4>
             <dl className="mt-6 divide-y divide-brand-border border-y border-brand-border">
               {bookingPolicies.map(({ Icon, title, detail }) => (
                 <div key={title} className="flex gap-3 py-4 first:pt-0 last:pb-0">
@@ -656,7 +652,7 @@ export function PricingSection() {
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-surface text-brand-blue">
               <CalendarCheck2 aria-hidden="true" size={24} strokeWidth={1.8} />
             </div>
-            <h3 className="mt-5 text-xl font-semibold text-brand-black">Cancellation terms</h3>
+            <h4 className="mt-5 text-xl font-semibold text-brand-black">Cancellation terms</h4>
             <dl className="mt-6 divide-y divide-brand-border border-y border-brand-border">
               {cancellationPolicies.map((policy) => (
                 <div key={policy.threshold} className="py-4 first:pt-0 last:pb-0">
@@ -667,29 +663,19 @@ export function PricingSection() {
             </dl>
           </article>
         </div>
-      </motion.section>
-    </motion.section>
+      </section>
+    </section>
   );
 }
 
 export function ContactSection() {
   return (
-    <motion.section
+    <section
       id="contact"
       aria-labelledby="contact-heading"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45, ease: "easeOut" }}
       className="brand-section brand-section--tight"
     >
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className="brand-card brand-card--soft p-6 sm:p-8 lg:p-10"
-      >
+      <div className="brand-card brand-card--soft p-6 sm:p-8 lg:p-10">
         <SectionHeading
           headingId="contact-heading"
           align="center"
@@ -705,19 +691,14 @@ export function ContactSection() {
             <span className="font-semibold text-brand-charcoal">Popular questions:</span> Can you serve outdoors? Do you offer mocktails? Is setup included?
           </p>
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.35, delay: 0.05, ease: "easeOut" }}
-          className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center"
-        >
-          <a href="mailto:AmbuBarLLC@gmail.com" className="brand-button w-full sm:w-auto">AmbuBarLLC@gmail.com</a>
+        <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:justify-center">
+          <Link href="/contact" className="brand-button w-full sm:w-auto">Plan Your Event</Link>
+          <a href={business.emailHref} className="brand-button brand-button--secondary w-full sm:w-auto">{business.email}</a>
           <a href="#home" className="brand-button brand-button--secondary w-full sm:w-auto">
             Back to top
           </a>
-        </motion.div>
-      </motion.div>
-    </motion.section>
+        </div>
+      </div>
+    </section>
   );
 }

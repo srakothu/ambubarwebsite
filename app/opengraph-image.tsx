@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
               Responders
             </div>
             <div style={{ display: "flex", fontSize: 30, lineHeight: 1.3, maxWidth: 760 }}>
-              A retired ambulance turned into Pennsylvania&apos;s most memorable mobile beverage bar.
+              A retired ambulance transformed into a mobile beverage bar for Pennsylvania events.
             </div>
           </div>
           <div style={{ color: "#fff4b3", display: "flex", fontSize: 24, fontWeight: 600, letterSpacing: 1.5 }}>

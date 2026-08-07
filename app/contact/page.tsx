@@ -1,19 +1,13 @@
-import type { Metadata } from "next";
 import { ContactPage } from "@/src/components/contact/contact-page";
+import { createPageMetadata } from "@/src/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Contact",
-  description: "Contact Ambu Bar LLC for mobile bar service from a converted ambulance for weddings, festivals, and community events in Pennsylvania.",
-  alternates: {
-    canonical: "/contact",
-  },
-  openGraph: {
-    title: "Contact Ambu Bar LLC",
-    description: "Reach out to book Ambu Bar for your next wedding, festival, fundraiser, or private celebration.",
-    type: "website",
-    url: "/contact",
-  },
-};
+  socialTitle: "Contact Ambu Bar LLC",
+  description:
+    "Contact Ambu Bar LLC for mobile bar service from a converted ambulance for weddings, festivals, and community events in Pennsylvania.",
+  path: "/contact",
+});
 
 export default function ContactRoute() {
   return <ContactPage />;

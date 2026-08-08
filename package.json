@@ -2,6 +2,10 @@
   "name": "ambu-bar",
   "version": "1.6.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "packageManager": "npm@11.17.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +14,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "framer-motion": "^12.42.2",
     "lucide-react": "^1.24.0",
     "next": "16.2.12",
     "react": "19.2.4",
@@ -29,7 +32,7 @@
   },
   "overrides": {
     "next": {
-      "postcss": "8.5.19"
+      "postcss": "8.5.25"
     },
     "sharp": "0.35.3"
   }

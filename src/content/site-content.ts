@@ -23,7 +23,7 @@ function getOnlineStoreDestination(config: OnlineStoreConfig) {
     try {
       const url = new URL(config.onlineStoreUrl);
 
-      if (url.protocol === "https:" || url.protocol === "http:") {
+      if (url.protocol === "https:") {
         return { href: url.toString(), isExternal: true } as const;
       }
     } catch {
@@ -232,7 +232,7 @@ export const navigationDirectLinks: readonly NavigationItem[] = [
 ];
 
 export const navigationCta: NavigationItem = {
-  label: "Book Now",
+  label: "Check Availability",
   href: "/contact",
   isSectionLink: false,
 };

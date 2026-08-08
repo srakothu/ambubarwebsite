@@ -146,7 +146,7 @@ export function SiteNav() {
             <a
               href={business.phoneHref}
               className="inline-flex min-h-9 items-center gap-2 rounded-md px-2 transition-colors hover:bg-white/10 focus-visible:outline-brand-gold"
-              aria-label={`Call or text Ambu Bar at ${business.phone}`}
+              aria-label={`Call Ambu Bar at ${business.phone}`}
             >
               <Phone aria-hidden="true" size={15} />
               <span className="sm:hidden">Call</span>

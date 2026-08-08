@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
-import { business } from "@/src/content/site-content";
+import { absoluteUrl, siteUrl } from "@/src/lib/site-url";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: "/api/",
     },
-    sitemap: `${business.website}/sitemap.xml`,
-    host: business.website,
+    sitemap: absoluteUrl("/sitemap.xml"),
+    host: siteUrl,
   };
 }

@@ -31,7 +31,7 @@ export function TeamSection() {
               <h3 className="text-xl font-semibold text-brand-black">Mary Ann Biancone</h3>
               <p className="mt-1 font-medium text-brand-blue">Director of Marketing and Social Media</p>
               <p className="mt-4 text-base leading-7 text-brand-text-muted">
-                An RN nurse manager at a skilled nursing facility with more than 20 years of experience in the medical field, Mary Ann brings a calm, people-first perspective to Ambu Bar&apos;s marketing and social media.
+                A registered nurse and nurse manager at a skilled nursing facility with more than 20 years of experience in the medical field, Mary Ann brings a calm, people-first perspective to Ambu Bar&apos;s marketing and social media.
               </p>
               <p className="mt-4 text-base leading-7 text-brand-text-muted">
                 She helps share the Thirst Responders&apos; story, strengthen community connections, and make sure each touchpoint feels as welcoming as the service at the bar.

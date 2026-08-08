@@ -4,13 +4,13 @@ The Ambu Bar website is a Next.js App Router site for a retired ambulance transf
 
 ## Requirements
 
-- Node.js 20 or later
-- npm 10 or later
+- Node.js 20.9 or later
+- npm 11.17.0 (declared in `package.json`)
 
 ## Local Development
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -36,7 +36,7 @@ npm run start
 - `/sitemap.xml` - Search engine sitemap
 - `/robots.txt` - Crawler policy
 
-The app also supplies a branded Open Graph/Twitter image, application icon, 404 page, and error recovery page through Next.js file conventions.
+The app also supplies a branded Open Graph/Twitter image, application and Apple touch icons, 404 page, and error recovery pages through Next.js file conventions.
 
 ## Content Updates
 
@@ -50,7 +50,7 @@ The contact form submits JSON to `/api/inquiries`, where the same inquiry contra
 
 Copy `.env.example` to `.env.local` for local development and configure these deployment variables in Vercel for production:
 
-- `NEXT_PUBLIC_SITE_URL` — canonical public origin used by metadata, sitemap, robots, and structured data; defaults to the current Vercel deployment.
+- `NEXT_PUBLIC_SITE_URL` — HTTPS canonical public origin used by metadata, sitemap, robots, and structured data; defaults to the current Vercel deployment. HTTP loopback origins are accepted only in development.
 - `RESEND_API_KEY` — required Resend API key.
 - `INQUIRY_FROM_EMAIL` — optional sender override. Until a domain is verified, the default is `Ambu Bar Website <onboarding@resend.dev>`; ensure the Resend account belongs to the recipient address.
 - `INQUIRY_TO_EMAIL` — optional destination override; defaults to `AmbuBarLLC@gmail.com`.
@@ -60,6 +60,8 @@ After purchasing the domain, verify a sending subdomain with Resend, replace `IN
 ## Deployment Checklist
 
 - Set `NEXT_PUBLIC_SITE_URL` when the custom production domain is connected. Until then, the canonical URL is `https://ambubar.vercel.app`.
+- Choose the primary custom hostname before launch, then configure the exact DNS records supplied by Vercel and redirect the alternate hostname to the primary one.
+- Keep HSTS limited to the current host until every intended subdomain is confirmed HTTPS-ready; consider `includeSubDomains` and preload only after that review.
 - Verify email, phone, and social profile URLs before publishing.
 - Add `RESEND_API_KEY`, `INQUIRY_FROM_EMAIL`, and `INQUIRY_TO_EMAIL` to the Vercel project environment and test a real inquiry.
 - Add confirmed public appearances to `publicEvents`; do not publish tentative or private bookings.

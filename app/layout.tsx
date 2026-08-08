@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { StructuredData } from "@/src/components/seo/structured-data";
 import { business } from "@/src/content/site-content";
+import { socialImage } from "@/src/lib/page-metadata";
+import { absoluteUrl, siteUrl } from "@/src/lib/site-url";
 import "./globals.css";
 
+const rootDescription =
+  "Ambu Bar is a retired ambulance turned mobile beverage bar for weddings, festivals, corporate events, fundraisers, and private parties across Pennsylvania.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(business.website),
+  metadataBase: new URL(siteUrl),
   applicationName: business.name,
   title: {
     default: "Ambu Bar | Pennsylvania Mobile Beverage Bar",
     template: "%s | Ambu Bar",
   },
-  description:
-    "Ambu Bar is a retired ambulance turned mobile beverage bar for weddings, festivals, corporate events, fundraisers, and private parties across Pennsylvania.",
+  description: rootDescription,
   keywords: [
     "mobile bar Pennsylvania",
     "wedding bartender Pennsylvania",
@@ -22,22 +26,22 @@ export const metadata: Metadata = {
     "mobile mocktail bar Pennsylvania",
   ],
   alternates: {
-    canonical: "/",
+    canonical: absoluteUrl("/"),
   },
   openGraph: {
     title: "Ambu Bar | Pennsylvania Mobile Beverage Bar",
-    description:
-      "For all of your beverage emergencies, call on us, your Thirst Responders.",
+    description: rootDescription,
     type: "website",
-    url: "/",
+    url: absoluteUrl("/"),
     siteName: business.name,
     locale: "en_US",
+    images: [socialImage],
   },
   twitter: {
     card: "summary_large_image",
     title: "Ambu Bar | Pennsylvania Mobile Beverage Bar",
-    description: business.tagline,
-    images: [{ url: "/opengraph-image", alt: "Ambu Bar Thirst Responders mobile beverage bar" }],
+    description: rootDescription,
+    images: [socialImage],
   },
   category: "Mobile beverage service",
 };

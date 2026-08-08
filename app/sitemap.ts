@@ -1,21 +1,21 @@
 import type { MetadataRoute } from "next";
-import { business } from "@/src/content/site-content";
+import { absoluteUrl } from "@/src/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: business.website,
+      url: absoluteUrl("/"),
       changeFrequency: "monthly",
       priority: 1,
-      images: [`${business.website}/images/Ambubar55logo.jpeg`],
+      images: [absoluteUrl("/images/Ambubar55logo.jpeg")],
     },
     {
-      url: `${business.website}/contact`,
+      url: absoluteUrl("/contact"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: `${business.website}/merchandise`,
+      url: absoluteUrl("/merchandise"),
       changeFrequency: "monthly",
       priority: 0.6,
     },

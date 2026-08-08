@@ -1,4 +1,5 @@
 import { business, socialLinks } from "@/src/content/site-content";
+import { absoluteUrl } from "@/src/lib/site-url";
 
 export function StructuredData() {
   const data = {
@@ -9,9 +10,9 @@ export function StructuredData() {
     description:
       "A retired ambulance converted into a mobile beverage bar serving weddings, festivals, private parties, fundraisers, and corporate events across Pennsylvania.",
     slogan: business.tagline,
-    url: business.website,
-    image: `${business.website}/images/Ambubar55logo.jpeg`,
-    logo: `${business.website}/images/Ambu-Bar Main.jpeg`,
+    url: absoluteUrl("/"),
+    image: absoluteUrl("/images/Ambubar55logo.jpeg"),
+    logo: absoluteUrl("/images/Ambu-Bar%20Main.jpeg"),
     telephone: business.phoneHref.replace("tel:", ""),
     email: business.email,
     address: {

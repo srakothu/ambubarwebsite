@@ -78,7 +78,7 @@ export function SiteFooter() {
               <a
                 href={business.phoneHref}
                 className="-mx-3 flex min-h-11 items-center gap-3 rounded-md px-3 text-white transition-colors hover:bg-white/10 focus-visible:outline-brand-gold"
-                aria-label={`Call or text Ambu Bar at ${business.phone}`}
+                aria-label={`Call Ambu Bar at ${business.phone}`}
               >
                 <Phone aria-hidden="true" size={18} className="shrink-0 text-brand-gold-soft" />
                 <span>

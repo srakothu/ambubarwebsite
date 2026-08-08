@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { business } from "@/src/content/site-content";
+import { absoluteUrl } from "@/src/lib/site-url";
 
 interface PageMetadataOptions {
   title: string;
@@ -8,10 +9,13 @@ interface PageMetadataOptions {
   path: `/${string}`;
 }
 
-const socialImage = {
-  url: "/opengraph-image",
-  alt: "Ambu Bar Thirst Responders mobile beverage bar",
-};
+export const socialImage = {
+  url: absoluteUrl("/opengraph-image"),
+  alt: "Ambu Bar Thirst Responders mobile beverage bar for Pennsylvania events",
+  width: 1200,
+  height: 630,
+  type: "image/png",
+} as const;
 
 export function createPageMetadata({
   title,
@@ -23,13 +27,13 @@ export function createPageMetadata({
     title,
     description,
     alternates: {
-      canonical: path,
+      canonical: absoluteUrl(path),
     },
     openGraph: {
       title: socialTitle,
       description,
       type: "website",
-      url: path,
+      url: absoluteUrl(path),
       siteName: business.name,
       locale: "en_US",
       images: [socialImage],

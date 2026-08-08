@@ -3,7 +3,7 @@ import { CheckCircle2, GlassWater, Siren } from "lucide-react";
 const expectations = [
   {
     title: "Calm, capable coordination",
-    description: "A retired firefighter and first responder brings more than 32 years of service-minded planning to every event conversation.",
+    description: "A retired firefighter and emergency medical technician brings more than 32 years of service-minded planning to every event conversation.",
     Icon: CheckCircle2,
   },
   {
